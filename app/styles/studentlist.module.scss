@@ -1,0 +1,156 @@
+@use "sass:math";
+
+
+.studentPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding-top: 5%;
+    height: 95vh;
+}
+
+.studentList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.buttonInfo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.listItem {
+  padding: 1%;
+  padding-top:2.25%;
+  padding-bottom:2.25%;
+  margin: 6px;
+  align-items: center;
+  appearance: none;
+  background-image: radial-gradient(100% 100% at 100% 0, #5adbffbb 0, #0824f1a2 100%);
+  border: 0;
+  border-radius: 6px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono",monospace;
+  height: 48px;
+  justify-content: flex-start;
+  line-height: 1;
+  position: relative;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
+}
+
+.listItem:focus {
+  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.listItem:hover {
+  box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #06d4ef 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.listItem:active {
+  box-shadow: #3c4fe0 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+// .avatar {
+//     position: relative;
+//     display: inline;
+//     right: 10px;
+//     border-radius: 50%;
+//     margin: 10px;
+// }
+
+// SCSS
+
+// @import "compass";
+
+@function createShadow($shadowsCount, $radius, $color, $startAngle) {
+  $sh: "0px 0px 0px transparent";
+  $angle: $startAngle / $shadowsCount;
+  @for $i from 1 through $shadowsCount {
+    $x: $radius * math.cos($angle * $i);
+    $y: $radius * math.sin($angle * $i);
+    $sh: "#{$sh}, #{$x} #{$y} #{$color}";
+  }
+  @return unquote($sh);
+}
+
+.avatar {
+  --border-color: #4255d4;
+  --background-color: #212752;
+  --avatar-size: 50px;
+  height: var(--avatar-size);
+  width: var(--avatar-size);
+  border: 2px solid var(--border-color);
+  padding: 3px;
+  border-radius: 50%;
+  margin: 4px;
+  // position: relative;
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    height: 6px;
+    width: 6px;
+    // border-radius: 100%;
+    transform: rotate(45deg);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+  &::before {
+    box-shadow: createShadow(8, 7rem, #4255d4, 360deg);
+    animation: animate-2 1s ease-in-out infinite;
+  }
+  &::after {
+    box-shadow: createShadow(16, 6rem, #4255d4, 360deg);
+    transform: rotate(12deg);
+    animation: animate-1 1s ease-in-out infinite;
+  }
+  img {
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+  }
+}
+
+@keyframes animate-1 {
+  0%,
+  100% {
+    box-shadow: createShadow(16, 6rem, #4255d4, 360deg);
+  }
+  50% {
+    box-shadow: createShadow(16, 5.5rem, #4255d4, 360deg);
+  }
+}
+
+@keyframes animate-2 {
+  0%,
+  100% {
+    box-shadow: createShadow(8, 5.5rem, #4255d4, 360deg);
+  }
+  50% {
+    box-shadow: createShadow(8, 6rem, #4255d4, 360deg);
+  }
+}

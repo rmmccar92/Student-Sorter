@@ -1,6 +1,6 @@
 import data from "../../data/people.json";
 import Link from "next/link";
-import styles from "../styles/studentlist.module.css";
+import styles from "../styles/studentlist.module.scss";
 import Image from "next/image";
 
 const StudentsPage = () => {

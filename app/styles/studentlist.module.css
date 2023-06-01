@@ -1,16 +1,32 @@
-.studentList {
+.studentPage {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     margin: auto;
     padding-top: 5%;
     height: 95vh;
 }
 
+.studentList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.buttonInfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
 .listItem {
-    padding: 1%;
-    margin-bottom: 6px;
+  padding: 1%;
+  margin: 6px;
   align-items: center;
   appearance: none;
   background-image: radial-gradient(100% 100% at 100% 0, #5adbffbb 0, #0824f1a2 100%);
@@ -47,4 +63,12 @@
 .listItem:active {
   box-shadow: #3c4fe0 0 3px 7px inset;
   transform: translateY(2px);
+}
+
+.avatar {
+    position: relative;
+    display: inline;
+    right: 10px;
+    border-radius: 50%;
+    margin: 10px;
 }

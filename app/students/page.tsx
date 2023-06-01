@@ -1,5 +1,6 @@
 import data from "../../data/people.json";
 import Link from "next/link";
+import styles from "../styles/studentlist.module.css";
 
 const StudentsPage = () => {
   // if (isLoading) return <div>Loading...</div>;
@@ -9,11 +10,17 @@ const StudentsPage = () => {
   );
   return (
     <div>
-      {students?.map((student) => (
-        <Link href={`/students/${student.id}`} key={student.id}>
-          <div>{student.name}</div>
-        </Link>
-      ))}
+      <div className={styles.studentList}>
+        {students?.map((student) => (
+          <Link
+            href={`/students/${student.id}`}
+            key={student.id}
+            className={styles.listItem}
+          >
+            <div>{student.name}</div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };

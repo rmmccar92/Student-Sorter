@@ -1,5 +1,6 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import Image from "next/image";
+import styles from "./styles/page.module.css";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -15,7 +16,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{' '}
+            By{" "}
             <Image
               src="/vercel.svg"
               alt="Vercel Logo"
@@ -25,6 +26,11 @@ export default function Home() {
               priority
             />
           </a>
+        </div>
+        <div>
+          <Link href="/students">
+            <h3>Student List</h3>
+          </Link>
         </div>
       </div>
 
@@ -91,5 +97,5 @@ export default function Home() {
         </a>
       </div>
     </main>
-  )
+  );
 }

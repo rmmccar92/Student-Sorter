@@ -25,8 +25,8 @@ const StudentsPage = () => {
                   className={styles.avatar}
                   src={student.avatar_url}
                   alt="Student Avatar"
-                  width={30}
-                  height={30}
+                  width={40}
+                  height={40}
                   // priority
                 />
               ) : (
@@ -39,7 +39,16 @@ const StudentsPage = () => {
                   // priority
                 />
               )}
-              {student.name}
+              <div className={styles.buttonContent}>{student.name}</div>
+              <div className={styles.buttonLogo}>
+                <Image
+                  src="/unc.png"
+                  alt="UNC Logo"
+                  width={75}
+                  height={75}
+                  // priority
+                />
+              </div>
             </div>
           </Link>
         ))}

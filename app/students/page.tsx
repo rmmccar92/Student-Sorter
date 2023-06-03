@@ -2,6 +2,7 @@ import data from "../../data/people.json";
 import Link from "next/link";
 import styles from "../styles/studentlist.module.scss";
 import Image from "next/image";
+import GroupsComponent from "../components/Groups";
 
 const StudentsPage = () => {
   // if (isLoading) return <div>Loading...</div>;
@@ -10,50 +11,55 @@ const StudentsPage = () => {
     (person) => person.enrollments[0].type === "StudentEnrollment"
   );
   return (
-    <div className={styles.studentPage}>
-      <h1>Students</h1>
-      <div className={styles.studentList}>
-        {students?.map((student) => (
-          <Link
-            href={`/students/${student.id}`}
-            key={student.id}
-            className={styles.listItem}
-          >
-            <div className={styles.buttonInfo}>
-              {student.avatar_url ? (
-                <Image
-                  className={styles.avatar}
-                  src={student.avatar_url}
-                  alt="Student Avatar"
-                  width={40}
-                  height={40}
-                  // priority
-                />
-              ) : (
-                <Image
-                  className={styles.avatar}
-                  src="/vercel.svg"
-                  alt="Student Avatar"
-                  width={50}
-                  height={50}
-                  // priority
-                />
-              )}
-              <div className={styles.buttonContent}>{student.name}</div>
-              <div className={styles.buttonLogo}>
-                <Image
-                  src="/unc.png"
-                  alt="UNC Logo"
-                  width={75}
-                  height={75}
-                  // priority
-                />
+    <>
+      <h1 className={styles.title}>Students</h1>
+      <div className={styles.studentPage}>
+        <div className={styles.studentList}>
+          {students?.map((student) => (
+            <Link
+              href={`/students/${student.id}`}
+              key={student.id}
+              className={styles.listItem}
+            >
+              <div className={styles.buttonInfo}>
+                {student.avatar_url ? (
+                  <Image
+                    className={styles.avatar}
+                    src={student.avatar_url}
+                    alt="Student Avatar"
+                    width={40}
+                    height={40}
+                    // priority
+                  />
+                ) : (
+                  <Image
+                    className={styles.avatar}
+                    src="/vercel.svg"
+                    alt="Student Avatar"
+                    width={50}
+                    height={50}
+                    // priority
+                  />
+                )}
+                <div className={styles.buttonContent}>{student.name}</div>
+                <div className={styles.buttonLogo}>
+                  <Image
+                    src="/unc.png"
+                    alt="UNC Logo"
+                    width={75}
+                    height={75}
+                    // priority
+                  />
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          ))}
+        </div>
+        <div className={styles.groupButton}>
+          <GroupsComponent />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

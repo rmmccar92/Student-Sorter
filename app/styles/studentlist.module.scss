@@ -2,69 +2,69 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 0.25rem;
-  color: #4B9CD3;
+  color: #4b9cd3;
   text-align: center;
-  font-family: "JetBrains Mono",monospace;
+  font-family: "JetBrains Mono", monospace;
 }
 
 .studentPage {
   display: flex;
   justify-content: space-evenly;
-  align-items: center;
   min-height: 100vh;
 }
 
 .studentList {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .buttonInfo {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-wrap: wrap;
-    align-items: center;
-
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  align-items: center;
 }
 // Buttons styling taken from https://getcssscan.com/css-buttons-examples (button 29)
 .listItem {
   overflow: hidden;
-  padding-top:2.4%;
-  padding-bottom:2.4%;
+  padding-top: 2.4%;
+  padding-bottom: 2.4%;
   margin: 6px;
   align-items: center;
   appearance: none;
-  background: radial-gradient(100% 100% at 100% 0, #4B9CD3 0, #0824f1a2 100%);
+  background: radial-gradient(100% 100% at 100% 0, #4b9cd3 0, #0824f1a2 100%);
   border: 0;
   border-radius: 6px;
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
   display: inline-flex;
-  font-family: "JetBrains Mono",monospace;
+  font-family: "JetBrains Mono", monospace;
   height: 48px;
   justify-content: flex-start;
   line-height: 1;
   position: relative;
   text-decoration: none;
-  transition: box-shadow .15s,transform .15s;
+  transition: box-shadow 0.15s, transform 0.15s;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
   white-space: nowrap;
-  will-change: box-shadow,transform;
+  will-change: box-shadow, transform;
   font-size: 18px;
 }
 
 .listItem:focus {
-  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
 }
 
 .listItem:hover {
-  box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #06d4ef 0 -3px 0 inset;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #06d4ef 0 -3px 0 inset;
   transform: translateY(-2px);
 }
 
@@ -74,41 +74,68 @@
 }
 
 .avatar {
-    position: relative;
-    display: inline;
-    right: 10px;
-    border-radius: 50%;
-    margin: 10px;
-    border:#4B9CD3 2px solid;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.25), 0 0 50px rgba(0,0,0,0.1) inset;
-  }
-
-  .buttonLogo {
-    z-index: -1;
-    position: relative;
-    left: 20px;
-    opacity: 0.45;
-    transition: all 0.35s ease-in-out;
-  }
-
-  .listItem:hover .buttonLogo {
-    opacity: 1;
-  }
-
-
-.groupButton button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  position: relative;
+  display: inline;
+  right: 10px;
+  border-radius: 50%;
+  margin: 10px;
+  border: #4b9cd3 2px solid;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 0 50px rgba(0, 0, 0, 0.1) inset;
 }
 
+.buttonLogo {
+  z-index: -1;
+  position: relative;
+  left: 20px;
+  opacity: 0.45;
+  transition: all 0.35s ease-in-out;
+}
 
-  @media screen and (max-width: 600px) {
+.listItem:hover .buttonLogo {
+  opacity: 1;
+}
+
+.groupButton {
+  position: fixed;
+  top: 15%;
+  right: 30%;
+}
+
+.groupButton button {
+  border-radius: 10%;
+  padding: 1em;
+
+  background: radial-gradient(
+    hsla(187, 95%, 48%, 1) 0%,
+    hsla(216, 88%, 45%, 1) 65%
+  );
+
+  color: black;
+  border: none;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
   .buttonLogo {
     display: none;
+  }
+
+  .studentPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .studentList {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .groupButton {
+    position: unset;
+    display: block;
+    margin: 1%;
   }
 }

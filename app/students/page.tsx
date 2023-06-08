@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import data from "../../data/people.json";
-import Link from "next/link";
-import styles from "../styles/studentlist.module.scss";
+// import Link from "next/link";
+import styles from "../styles/studentlist.module.css";
 import Image from "next/image";
 import GroupsComponent from "../components/Groups";
 import StudentModal from "../components/StudentModal";
@@ -12,8 +12,7 @@ const StudentsPage = () => {
   // if (isLoading) return <div>Loading...</div>;
   // if (isError) return <div>Error</div>;
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [studentId, setStudentId] = useState(0);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const students = data.filter(
     (person) => person.enrollments[0].type === "StudentEnrollment"
@@ -39,8 +38,27 @@ const StudentsPage = () => {
             isOpen={isOpen}
             setIsOpen={setIsOpen}
           >
-            <div className="modal-inner">
+            <div className={styles.modalInner}>
               <h1 className={styles.modalTitle}>{selectedStudent?.name}</h1>
+              {selectedStudent?.avatar_url ? (
+                <Image
+                  className={styles.modalAvatar}
+                  src={selectedStudent.avatar_url}
+                  alt="Student Avatar"
+                  width={40}
+                  height={40}
+                  // priority
+                />
+              ) : (
+                <Image
+                  className={styles.modalAvatar}
+                  src="/vercel.svg"
+                  alt="Student Avatar"
+                  width={50}
+                  height={50}
+                  // priority
+                />
+              )}
             </div>
           </StudentModal>
         </>
@@ -53,6 +71,7 @@ const StudentsPage = () => {
               // href={`/students/${student.id}`}
               key={student.id}
               className={styles.listItem}
+              onClick={() => openModal(student.id)}
             >
               <div className={styles.buttonInfo}>
                 {student.avatar_url ? (
@@ -74,12 +93,7 @@ const StudentsPage = () => {
                     // priority
                   />
                 )}
-                <div
-                  className={styles.buttonContent}
-                  onClick={() => openModal(student.id)}
-                >
-                  {student.name}
-                </div>
+                <div className={styles.buttonContent}>{student.name}</div>
                 <div className={styles.buttonLogo}>
                   <Image
                     src="/unc.png"

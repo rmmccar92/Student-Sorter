@@ -27,7 +27,6 @@
   flex-wrap: wrap;
   align-items: center;
 }
-// Buttons styling taken from https://getcssscan.com/css-buttons-examples (button 29)
 .listItem {
   overflow: hidden;
   padding-top: 2.4%;
@@ -113,6 +112,20 @@
   color: black;
   border: none;
   cursor: pointer;
+}
+.modalInner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.modalAvatar {
+  position: relative;
+  display: inline;
+  border-radius: 15%;
+  margin: 10px;
+  /* border: #4b9cd3 2px solid; */
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 0 50px rgba(0, 0, 0, 0.1) inset;
 }
 
 @media screen and (max-width: 600px) {

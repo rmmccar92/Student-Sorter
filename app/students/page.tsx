@@ -6,6 +6,7 @@ import styles from "../styles/studentlist.module.scss";
 import Image from "next/image";
 import GroupsComponent from "../components/Groups";
 import StudentModal from "../components/StudentModal";
+import type { Student } from "../../types.ts";
 
 const StudentsPage = () => {
   // if (isLoading) return <div>Loading...</div>;
@@ -13,7 +14,7 @@ const StudentsPage = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [studentId, setStudentId] = useState(0);
-  const [selectedStudent, setSelectedStudent] = useState({});
+  const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const students = data.filter(
     (person) => person.enrollments[0].type === "StudentEnrollment"
   );

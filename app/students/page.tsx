@@ -1,23 +1,55 @@
+"use client";
+import { useState } from "react";
 import data from "../../data/people.json";
 import Link from "next/link";
 import styles from "../styles/studentlist.module.scss";
 import Image from "next/image";
 import GroupsComponent from "../components/Groups";
+import StudentModal from "../components/StudentModal";
 
 const StudentsPage = () => {
   // if (isLoading) return <div>Loading...</div>;
   // if (isError) return <div>Error</div>;
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [studentId, setStudentId] = useState(0);
+  const [selectedStudent, setSelectedStudent] = useState({});
   const students = data.filter(
     (person) => person.enrollments[0].type === "StudentEnrollment"
   );
+
+  const findStudent = (id: number) => {
+    const student = data.find((student) => student.id === id);
+    console.log(`${student?.name}`, student);
+    return student;
+  };
+
+  const openModal = (id: number) => {
+    const student: any = findStudent(id);
+    setSelectedStudent(student);
+    setIsOpen(true);
+  };
   return (
     <>
+      {isOpen && (
+        <>
+          <StudentModal
+            ariaLabel="student-modal"
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+          >
+            <div className="modal-inner">
+              <h1 className={styles.modalTitle}>{selectedStudent?.name}</h1>
+            </div>
+          </StudentModal>
+        </>
+      )}
       <h1 className={styles.title}>Students</h1>
       <div className={styles.studentPage}>
         <div className={styles.studentList}>
           {students?.map((student) => (
-            <Link
-              href={`/students/${student.id}`}
+            <div
+              // href={`/students/${student.id}`}
               key={student.id}
               className={styles.listItem}
             >
@@ -41,7 +73,12 @@ const StudentsPage = () => {
                     // priority
                   />
                 )}
-                <div className={styles.buttonContent}>{student.name}</div>
+                <div
+                  className={styles.buttonContent}
+                  onClick={() => openModal(student.id)}
+                >
+                  {student.name}
+                </div>
                 <div className={styles.buttonLogo}>
                   <Image
                     src="/unc.png"
@@ -52,7 +89,7 @@ const StudentsPage = () => {
                   />
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
         <div className={styles.groupButton}>

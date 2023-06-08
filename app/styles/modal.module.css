@@ -1,0 +1,38 @@
+.modalOverlay {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalContainer {
+  position: fixed;
+  display: flex;
+  left: 28%;
+  top: 10%;
+  width: 42%;
+  height: 75%;
+  justify-content: center;
+  align-items: center;
+  max-height: 100vh;
+  overflow: hidden;
+  text-align: center;
+  /* From https://css.glass */
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(115, 199, 255, 0.711) 40%,
+    rgba(0, 145, 255, 0.782) 100%
+  );
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(8.6px);
+  border: 1px solid rgba(75, 156, 211, 0.69);
+  border-radius: 40px;
+}

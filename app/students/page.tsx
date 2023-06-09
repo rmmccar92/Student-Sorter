@@ -29,6 +29,14 @@ const StudentsPage = () => {
     setSelectedStudent(student);
     setIsOpen(true);
   };
+
+  const formatName = (studentName: string) => {
+    const nameArr = studentName.split(" ");
+    const firstName = nameArr[1];
+    const lastName = nameArr[0].slice(0, -1);
+    const fullName = firstName + " " + lastName;
+    return fullName;
+  };
   return (
     <>
       {isOpen && (
@@ -39,14 +47,16 @@ const StudentsPage = () => {
             setIsOpen={setIsOpen}
           >
             <div className={styles.modalInner}>
-              <h1 className={styles.modalTitle}>{selectedStudent?.name}</h1>
+              <h1 className={styles.modalTitle}>
+                {formatName(selectedStudent?.name as string)}
+              </h1>
               {selectedStudent?.avatar_url ? (
                 <Image
                   className={styles.modalAvatar}
                   src={selectedStudent.avatar_url}
                   alt="Student Avatar"
-                  width={40}
-                  height={40}
+                  width={60}
+                  height={60}
                   // priority
                 />
               ) : (

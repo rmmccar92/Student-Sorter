@@ -1,8 +1,17 @@
-const GroupsComponent = () => {
+interface GroupsProps {
+  toggle: boolean;
+  setToggle: (toggle: any) => void;
+}
+
+const GroupsComponent = ({ toggle, setToggle }: GroupsProps) => {
   return (
-    <button>
-      <span>Groups</span>
-    </button>
+    <>
+      {!toggle && (
+        <button onClick={() => setToggle((prev: boolean) => !prev)}>
+          <span>Groups</span>
+        </button>
+      )}
+    </>
   );
 };
 

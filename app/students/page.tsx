@@ -6,6 +6,7 @@ import styles from "../styles/studentlist.module.css";
 import Image from "next/image";
 import GroupsComponent from "../components/Groups";
 import StudentModal from "../components/StudentModal";
+import GroupsPanel from "../components/GroupsPanel.tsx";
 import type { Student } from "../../types.ts";
 
 const StudentsPage = () => {
@@ -14,6 +15,7 @@ const StudentsPage = () => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
+  const [toggleGroupPanel, setToggleGroupPanel] = useState<boolean>(false);
   const students = data.filter(
     (person) => person.enrollments[0].type === "StudentEnrollment"
   );
@@ -118,7 +120,16 @@ const StudentsPage = () => {
           ))}
         </div>
         <div className={styles.groupButton}>
-          <GroupsComponent />
+          <GroupsComponent
+            toggle={toggleGroupPanel}
+            setToggle={setToggleGroupPanel}
+          />
+          {toggleGroupPanel && (
+            <GroupsPanel
+              toggle={toggleGroupPanel}
+              setToggle={setToggleGroupPanel}
+            />
+          )}
         </div>
       </div>
     </>

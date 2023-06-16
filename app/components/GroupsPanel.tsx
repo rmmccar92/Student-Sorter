@@ -1,4 +1,6 @@
 import styles from "../styles/groupsPanel.module.css";
+import { useState } from "react";
+import SingleGroupComponent from "./SingleGroupComponent";
 
 interface PanelProps {
   toggle: boolean;
@@ -6,16 +8,25 @@ interface PanelProps {
 }
 
 const GroupsPanel = ({ toggle, setToggle }: PanelProps) => {
+  const [groups, setGroups] = useState<string[]>([]);
+
+  const handleAdd = () => {
+    console.log("Add Group");
+    setGroups([...groups, `Group ${groups.length + 1}`]);
+  };
+
   return (
     <div className={styles.groupsPanel}>
       <h1>Groups</h1>
       <div className={styles.groupsList}>
         <div className={styles.group}>
-          <h2>Group 1</h2>
-          <h2>Group 2</h2>
-          <h2>Group 3</h2>
-          <h2>Group 4</h2>
-          <h2>Group 5</h2>
+          {groups.length > 0 &&
+            groups.map((group) => {
+              return <SingleGroupComponent groupName={group} />;
+            })}
+          <button className={styles.addGroupButton} onClick={handleAdd}>
+            <h2>Add Group</h2>
+          </button>
         </div>
       </div>
       <div className={styles.close} onClick={(prev) => setToggle(!prev)}>

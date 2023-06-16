@@ -77,7 +77,9 @@ const StudentsPage = () => {
       )}
       <h1 className={styles.title}>Students</h1>
       <div className={styles.studentPage}>
-        <div className={styles.studentList}>
+        <div
+          className={toggleGroupPanel ? styles.panelOpen : styles.studentList}
+        >
           {students?.map((student) => (
             <div
               // href={`/students/${student.id}`}
@@ -119,19 +121,19 @@ const StudentsPage = () => {
             </div>
           ))}
         </div>
-        <div className={styles.groupButton}>
-          <GroupsComponent
-            toggle={toggleGroupPanel}
-            setToggle={setToggleGroupPanel}
-          />
-          {toggleGroupPanel && (
-            <GroupsPanel
-              toggle={toggleGroupPanel}
-              setToggle={setToggleGroupPanel}
-            />
-          )}
-        </div>
       </div>
+      <div className={styles.groupButton}>
+        <GroupsComponent
+          toggle={toggleGroupPanel}
+          setToggle={setToggleGroupPanel}
+        />
+      </div>
+      {toggleGroupPanel && (
+        <GroupsPanel
+          toggle={toggleGroupPanel}
+          setToggle={setToggleGroupPanel}
+        />
+      )}
     </>
   );
 };

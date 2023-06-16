@@ -1,13 +1,32 @@
 .groupsPanel {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  position: fixed;
   justify-content: center;
-  margin: 0;
-  padding: 0;
-  left: 0;
-  top: 10%;
-  width: 100vw;
+  align-items: center;
+  top: 0;
+  right: 0;
+  width: 50vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.addGroupButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 10px;
+  padding: 1.25%;
+  margin: 6px;
+  background: radial-gradient(100% 100% at 100% 0, #4b9cd3 0, #0824f1a2 100%);
+  border: 0;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-family: "JetBrains Mono", monospace;
+  height: 32px;
+  line-height: 1;
+  transition: box-shadow 0.15s, transform 0.15s;
+  user-select: none;
 }

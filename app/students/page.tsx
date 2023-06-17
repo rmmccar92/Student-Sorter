@@ -77,11 +77,11 @@ const StudentsPage = () => {
       )}
       <h1 className={styles.title}>Students</h1>
       <div className={styles.studentPage}>
-        <div
+        <ul
           className={toggleGroupPanel ? styles.panelOpen : styles.studentList}
         >
           {students?.map((student) => (
-            <div
+            <li
               // href={`/students/${student.id}`}
               key={student.id}
               className={styles.listItem}
@@ -118,9 +118,9 @@ const StudentsPage = () => {
                   />
                 </div>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
       <div className={styles.groupButton}>
         <GroupsComponent

@@ -1,6 +1,7 @@
 import styles from "../styles/groupsPanel.module.css";
 import { useState } from "react";
 import SingleGroupComponent from "./SingleGroupComponent";
+import { Droppable } from "react-beautiful-dnd";
 
 interface PanelProps {
   toggle: boolean;

@@ -8,6 +8,7 @@ import GroupsComponent from "../components/Groups";
 import StudentModal from "../components/StudentModal";
 import GroupsPanel from "../components/GroupsPanel.tsx";
 import type { Student } from "../../types.ts";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 const StudentsPage = () => {
   // if (isLoading) return <div>Loading...</div>;
@@ -19,6 +20,10 @@ const StudentsPage = () => {
   const students = data.filter(
     (person) => person.enrollments[0].type === "StudentEnrollment"
   );
+
+  const dragEndHandler = (result: any) => {
+    console.log(result);
+  };
 
   const findStudent = (id: number) => {
     const student = data.find((student) => student.id === id);
@@ -76,64 +81,87 @@ const StudentsPage = () => {
         </>
       )}
       <h1 className={styles.title}>Students</h1>
-      <div className={styles.studentPage}>
-        <ul
-          className={toggleGroupPanel ? styles.panelOpen : styles.studentList}
-        >
-          {students?.map((student) => (
-            <li
-              // href={`/students/${student.id}`}
-              key={student.id}
-              className={styles.listItem}
-              onClick={() => openModal(student.id)}
-            >
-              <div className={styles.buttonInfo}>
-                {student.avatar_url ? (
-                  <Image
-                    className={styles.avatar}
-                    src={student.avatar_url}
-                    alt="Student Avatar"
-                    width={40}
-                    height={40}
-                    // priority
-                  />
-                ) : (
-                  <Image
-                    className={styles.avatar}
-                    src="/vercel.svg"
-                    alt="Student Avatar"
-                    width={50}
-                    height={50}
-                    // priority
-                  />
-                )}
-                <div className={styles.buttonContent}>{student.name}</div>
-                <div className={styles.buttonLogo}>
-                  <Image
-                    src="/unc.png"
-                    alt="UNC Logo"
-                    width={75}
-                    height={75}
-                    // priority
-                  />
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className={styles.groupButton}>
-        <GroupsComponent
-          toggle={toggleGroupPanel}
-          setToggle={setToggleGroupPanel}
-        />
-      </div>
-      {toggleGroupPanel && (
-        <GroupsPanel
-          toggle={toggleGroupPanel}
-          setToggle={setToggleGroupPanel}
-        />
-      )}
+      <DragDropContext onDragEnd={dragEndHandler}>
+        <div className={styles.studentPage}>
+          <Droppable droppableId={"1"}>
+            {(provided, snapShot) => (
+              <ul
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                role="listitem"
+                className={
+                  toggleGroupPanel ? styles.panelOpen : styles.studentList
+                }
+              >
+                {students?.map((student, i) => (
+                  <Draggable
+                    draggableId={student.id.toString()}
+                    key={student.id}
+                    index={i}
+                  >
+                    {(provided, snapShot) => (
+                      <li
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        className={styles.listItem}
+                        ref={provided.innerRef}
+                        isDragging={snapShot.isDragging}
+                        onClick={() => openModal(student.id)}
+                      >
+                        <div className={styles.buttonInfo}>
+                          {student.avatar_url ? (
+                            <Image
+                              className={styles.avatar}
+                              src={student.avatar_url}
+                              alt="Student Avatar"
+                              width={40}
+                              height={40}
+                              // priority
+                            />
+                          ) : (
+                            <Image
+                              className={styles.avatar}
+                              src="/vercel.svg"
+                              alt="Student Avatar"
+                              width={50}
+                              height={50}
+                              // priority
+                            />
+                          )}
+                          <div className={styles.buttonContent}>
+                            {student.name}
+                          </div>
+                          <div className={styles.buttonLogo}>
+                            <Image
+                              src="/unc.png"
+                              alt="UNC Logo"
+                              width={75}
+                              height={75}
+                              // priority
+                            />
+                          </div>
+                        </div>
+                      </li>
+                    )}
+                  </Draggable>
+                ))}
+              </ul>
+            )}
+          </Droppable>
+        </div>
+        <div className={styles.groupButton}>
+          <GroupsComponent
+            toggle={toggleGroupPanel}
+            setToggle={setToggleGroupPanel}
+          />
+        </div>
+        {toggleGroupPanel && (
+          <GroupsPanel
+            toggle={toggleGroupPanel}
+            setToggle={setToggleGroupPanel}
+          />
+        )}
+      </DragDropContext>
     </>
   );
 };

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import data from "../../data/people.json";
 // import Link from "next/link";
 import styles from "../styles/studentlist.module.css";
@@ -7,16 +7,22 @@ import Image from "next/image";
 import GroupsComponent from "../components/Groups";
 import StudentModal from "../components/StudentModal";
 import GroupsPanel from "../components/GroupsPanel.tsx";
-import type { Student } from "../../types.ts";
+import type { Student, Group } from "../../types.ts";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 const StudentsPage = () => {
-  // if (isLoading) return <div>Loading...</div>;
-  // if (isError) return <div>Error</div>;
-
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [toggleGroupPanel, setToggleGroupPanel] = useState<boolean>(false);
+
+  const [groups, setGroups] = useState<[Group] | []>([]);
+  useEffect(() => {
+    const localData = localStorage.getItem("groups");
+    if (localData) {
+      setGroups(JSON.parse(localData));
+    }
+  }, []);
+
   const students = data.filter(
     (person) => person.enrollments[0].type === "StudentEnrollment"
   );
@@ -93,6 +99,7 @@ const StudentsPage = () => {
                   toggleGroupPanel ? styles.panelOpen : styles.studentList
                 }
               >
+                {provided.placeholder}
                 {students?.map((student, i) => (
                   <Draggable
                     draggableId={student.id.toString()}
@@ -105,7 +112,8 @@ const StudentsPage = () => {
                         {...provided.dragHandleProps}
                         className={styles.listItem}
                         ref={provided.innerRef}
-                        isDragging={snapShot.isDragging}
+                        // @ts-ignore
+                        // isDragging={snapShot.isDragging}
                         onClick={() => openModal(student.id)}
                       >
                         <div className={styles.buttonInfo}>
@@ -159,6 +167,8 @@ const StudentsPage = () => {
           <GroupsPanel
             toggle={toggleGroupPanel}
             setToggle={setToggleGroupPanel}
+            groups={groups}
+            setGroups={setGroups}
           />
         )}
       </DragDropContext>

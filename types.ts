@@ -44,3 +44,9 @@ export type Student = {
   }[];
   analytics_url: string;
 };
+
+export type Group = {
+  id: number;
+  name: string;
+  members: string[];
+};

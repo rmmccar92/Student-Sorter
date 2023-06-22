@@ -9,8 +9,16 @@ const SingleGroupComponent: FC<SingleGroupComponentProps> = ({ groupName }) => {
   return (
     <div className={styles.groupBox}>
       <h2>{groupName}</h2>
-      <Droppable droppableId={groupName}>
-        {(provided) => <ul className={groupName}></ul>}
+      <Droppable droppableId={"2"}>
+        {(provided, snapShot) => (
+          <ul
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            role="listitem"
+          >
+            {provided.placeholder}
+          </ul>
+        )}
       </Droppable>
     </div>
   );

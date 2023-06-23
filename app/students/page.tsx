@@ -15,7 +15,7 @@ const StudentsPage = () => {
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [toggleGroupPanel, setToggleGroupPanel] = useState<boolean>(false);
 
-  const [groups, setGroups] = useState<[Group] | []>([]);
+  const [groups, setGroups] = useState<Group[] | []>([]);
   useEffect(() => {
     const localData = localStorage.getItem("groups");
     if (localData) {

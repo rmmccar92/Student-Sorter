@@ -7,8 +7,8 @@ import type { Group } from "../../types.ts";
 interface PanelProps {
   toggle: boolean;
   setToggle: (toggle: any) => void;
-  groups: [Group] | [];
-  setGroups: (groups: [Group]) => void;
+  groups: Group[] | [];
+  setGroups: (groups: Group[]) => void;
 }
 
 const GroupsPanel = ({ toggle, setToggle, groups, setGroups }: PanelProps) => {
@@ -29,7 +29,7 @@ const GroupsPanel = ({ toggle, setToggle, groups, setGroups }: PanelProps) => {
       <h1>Groups</h1>
       <div className={styles.groupsList}>
         <div className={styles.group}>
-          {groups[0]?.name > 0 &&
+          {groups[0]?.name &&
             groups.map((group, i) => {
               return <SingleGroupComponent key={i} groupName={group?.name} />;
             })}

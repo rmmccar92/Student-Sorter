@@ -1,5 +1,5 @@
 import styles from "../styles/groupsPanel.module.css";
-import { useState } from "react";
+import { use, useState } from "react";
 import SingleGroupComponent from "./SingleGroupComponent";
 import { Droppable } from "react-beautiful-dnd";
 import type { Group } from "../../types.ts";
@@ -22,6 +22,7 @@ const GroupsPanel = ({ toggle, setToggle, groups, setGroups }: PanelProps) => {
         members: [],
       },
     ]);
+    localStorage.setItem("groups", JSON.stringify(groups));
   };
 
   return (

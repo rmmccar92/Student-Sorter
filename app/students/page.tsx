@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import data from "../../data/people.json";
-// import Link from "next/link";
 import styles from "../styles/studentlist.module.css";
 import Image from "next/image";
 import GroupsComponent from "../components/Groups";
@@ -11,16 +10,22 @@ import type { Student, Group } from "../../types.ts";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 const StudentsPage = () => {
+  let value: any = [];
+  // Get the value from local storage if it exists
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [toggleGroupPanel, setToggleGroupPanel] = useState<boolean>(false);
 
   const [groups, setGroups] = useState<Group[] | []>([]);
   useEffect(() => {
-    const localData = localStorage.getItem("groups");
-    if (localData) {
-      setGroups(JSON.parse(localData));
+    if ("groups" in localStorage) {
+      value = JSON.parse(localStorage.getItem("groups"));
+      console.log(value);
+    } else {
+      value = [];
     }
+    setGroups(value);
   }, []);
 
   const students = data.filter(

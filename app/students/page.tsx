@@ -20,8 +20,8 @@ const StudentsPage = () => {
   const [groups, setGroups] = useState<Group[] | []>([]);
   useEffect(() => {
     if ("groups" in localStorage) {
-      value = JSON.parse(localStorage.getItem("groups"));
-      console.log(value);
+      value = JSON.parse(localStorage.getItem("groups") as string);
+      // console.log(value);
     } else {
       value = [];
     }

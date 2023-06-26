@@ -22,7 +22,17 @@ const GroupsPanel = ({ toggle, setToggle, groups, setGroups }: PanelProps) => {
         members: [],
       },
     ]);
-    localStorage.setItem("groups", JSON.stringify(groups));
+    localStorage.setItem(
+      "groups",
+      JSON.stringify([
+        ...groups,
+        {
+          name: `Group ${groups.length + 1}`,
+          id: groups.length + 1,
+          members: [],
+        },
+      ])
+    );
   };
 
   return (

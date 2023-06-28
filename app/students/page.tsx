@@ -33,10 +33,46 @@ const StudentsPage = () => {
   );
 
   const dragEndHandler = (result: any) => {
-    console.log(result);
+    console.log("RESULT", result);
+    const { destination, source, draggableId } = result;
+    if (!destination) {
+      return;
+    }
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    } else {
+      console.log("DESTINATION", destination);
+      addGroupMember(destination.droppableId, draggableId);
+    }
+  };
+
+  const addGroupMember = (groupId: string, studentId: string) => {
+    groups.forEach((group) => {
+      const realGroupId = groupId.split("-")[0];
+      // console.log(
+      //   "GROUP ID",
+      //   realGroupId,
+      //   "Two:",
+      //   group.id.toString(),
+      //   studentId
+      // );
+      if (realGroupId === group.id.toString()) {
+        const foundStudent: any = findStudent(parseInt(studentId));
+        const updatedMembers = [...groups, group.members.push(foundStudent)];
+        console.log("UPDATED MEMBERS", updatedMembers);
+        setGroups((prev) => {
+          return [updatedMembers];
+        });
+        localStorage.setItem("groups", JSON.stringify([updatedMembers]));
+      }
+    });
   };
 
   const findStudent = (id: number) => {
+    console.log("ID", id);
     const student = data.find((student) => student.id === id);
     console.log(`${student?.name}`, student);
     return student;
@@ -174,6 +210,7 @@ const StudentsPage = () => {
             setToggle={setToggleGroupPanel}
             groups={groups}
             setGroups={setGroups}
+            // dragEndHandler={dragEndHandler}
           />
         )}
       </DragDropContext>

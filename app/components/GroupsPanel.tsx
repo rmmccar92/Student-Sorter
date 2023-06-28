@@ -9,9 +9,16 @@ interface PanelProps {
   setToggle: (toggle: any) => void;
   groups: Group[] | [];
   setGroups: (groups: Group[]) => void;
+  // dragEndHandler: (result: any) => void;
 }
 
-const GroupsPanel = ({ toggle, setToggle, groups, setGroups }: PanelProps) => {
+const GroupsPanel = ({
+  toggle,
+  setToggle,
+  groups,
+  setGroups,
+}: // dragEndHandler,
+PanelProps) => {
   const handleAdd = () => {
     console.log("Add Group");
     setGroups([
@@ -42,7 +49,13 @@ const GroupsPanel = ({ toggle, setToggle, groups, setGroups }: PanelProps) => {
         <div className={styles.group}>
           {groups[0]?.name &&
             groups.map((group, i) => {
-              return <SingleGroupComponent key={i} groupName={group?.name} />;
+              return (
+                <SingleGroupComponent
+                  key={i}
+                  group={group}
+                  // dragEndHandler={dragEndHandler}
+                />
+              );
             })}
           <button className={styles.addGroupButton} onClick={handleAdd}>
             <h2>Add Group</h2>

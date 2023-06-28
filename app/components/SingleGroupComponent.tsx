@@ -1,15 +1,21 @@
 import type { FC } from "react";
 import styles from "../styles/singleGroupComponent.module.css";
 import { Droppable } from "react-beautiful-dnd";
+import type { Group } from "../../types.ts";
 interface SingleGroupComponentProps {
-  groupName: string;
+  group: Group;
+  // dragEndHandler: (result: any) => void;
 }
 
-const SingleGroupComponent: FC<SingleGroupComponentProps> = ({ groupName }) => {
+const SingleGroupComponent: FC<SingleGroupComponentProps> = ({
+  group,
+  // dragEndHandler,
+}) => {
+  console.log("GROUP!!!", group);
   return (
     <div className={styles.groupBox}>
-      <h2>{groupName}</h2>
-      <Droppable droppableId={"2"}>
+      <h2>{group.name}</h2>
+      <Droppable droppableId={`${group?.id.toString()}-${group.name}`}>
         {(provided, snapShot) => (
           <ul
             {...provided.droppableProps}

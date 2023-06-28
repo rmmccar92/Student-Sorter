@@ -63,10 +63,8 @@ const StudentsPage = () => {
         const foundStudent: any = findStudent(parseInt(studentId));
         const updatedMembers = [...groups, group.members.push(foundStudent)];
         console.log("UPDATED MEMBERS", updatedMembers);
-        setGroups((prev) => {
-          return [updatedMembers];
-        });
-        localStorage.setItem("groups", JSON.stringify([updatedMembers]));
+        // setGroups(updatedMembers as any);
+        // localStorage.setItem("groups", JSON.stringify([updatedMembers]));
       }
     });
   };

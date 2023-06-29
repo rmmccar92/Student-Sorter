@@ -23,6 +23,18 @@ const SingleGroupComponent: FC<SingleGroupComponentProps> = ({
             role="listitem"
           >
             {provided.placeholder}
+            {group?.members?.map((member, i) => (
+              <li key={member.id} className={styles.listItem}>
+                <div className={styles.listItemContent}>
+                  <img
+                    src={member.avatar_url}
+                    alt={member.name}
+                    className={styles.avatar}
+                  />
+                  <p>{member.name}</p>
+                </div>
+              </li>
+            ))}
           </ul>
         )}
       </Droppable>

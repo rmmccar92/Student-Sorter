@@ -15,7 +15,7 @@ const SingleGroupComponent: FC<SingleGroupComponentProps> = ({
   return (
     <div className={styles.groupBox}>
       <h2>{group.name}</h2>
-      <Droppable droppableId={`${group?.id.toString()}-${group.name}`}>
+      <Droppable droppableId={`${group?.id}-${group.name}` || "1"}>
         {(provided, snapShot) => (
           <ul
             {...provided.droppableProps}

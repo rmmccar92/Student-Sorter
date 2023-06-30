@@ -15,29 +15,29 @@ const SingleGroupComponent: FC<SingleGroupComponentProps> = ({
   return (
     <div className={styles.groupBox}>
       <h2>{group.name}</h2>
-      <Droppable droppableId={`${group?.id}-${group.name}` || "1"}>
-        {(provided, snapShot) => (
-          <ul
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            role="listitem"
-          >
-            {provided.placeholder}
-            {group?.members?.map((member, i) => (
-              <li key={member.id} className={styles.listItem}>
-                <div className={styles.listItemContent}>
-                  <img
-                    src={member.avatar_url}
-                    alt={member.name}
-                    className={styles.avatar}
-                  />
-                  <p>{member.name}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </Droppable>
+      {/* <Droppable droppableId={`${group?.id.toString()}-${group.name}`}>
+        {(provided, snapShot) => ( */}
+      <ul
+        // {...provided.droppableProps}
+        // ref={provided.innerRef}
+        role="listitem"
+      >
+        {/* {provided.placeholder} */}
+        {group?.members?.map((member, i) => (
+          <li key={member.id} className={styles.listItem}>
+            <div className={styles.listItemContent}>
+              <img
+                src={member.avatar_url}
+                alt={member.name}
+                className={styles.avatar}
+              />
+              <p>{member.name}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      {/* )}
+      </Droppable> */}
     </div>
   );
 };

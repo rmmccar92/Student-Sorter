@@ -6,40 +6,41 @@ import Image from "next/image";
 import GroupsComponent from "../components/Groups";
 import StudentModal from "../components/StudentModal";
 import GroupsPanel from "../components/GroupsPanel.tsx";
+import StudentCard from "../components/StudentCard.tsx";
 import type { Student, Group } from "../../types.ts";
 import { useSprings, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 
-const animationFn =
-  (
-    order: number[],
-    active: boolean = false,
-    originalIndex: number = 0,
-    curIndex: number = 0,
-    y: number = 0,
-    x: number = 0
-  ) =>
-  // DOUBLE ARROW FUNCTION :O
-  (index: number) =>
-    active && index === originalIndex
-      ? {
-          y: curIndex * 100 + y,
-          x: curIndex * 100 + x,
-          scale: 1.1,
-          zIndex: "1",
-          shadow: 15,
-          // determines which properties are animated immediately
-          immediate: (key: string) =>
-            key === "y" || key === "zIndex" || key === "x",
-        }
-      : {
-          y: order.indexOf(index) * 50,
-          x: order.indexOf(index) * 50,
-          scale: 1,
-          zIndex: 0,
-          shadow: 1,
-          immediate: false,
-        };
+// const animationFn =
+//   (
+//     order: number[],
+//     active: boolean = false,
+//     originalIndex: number = 0,
+//     curIndex: number = 0,
+//     y: number = 0,
+//     x: number = 0
+//   ) =>
+//   // DOUBLE ARROW FUNCTION :O
+//   (index: number) =>
+//     active && index === originalIndex
+//       ? {
+//           y: curIndex * 100 + y,
+//           x: curIndex * 100 + x,
+//           scale: 1.1,
+//           zIndex: "1",
+//           shadow: 15,
+//           // determines which properties are animated immediately
+//           immediate: (key: string) =>
+//             key === "y" || key === "zIndex" || key === "x",
+//         }
+//       : {
+//           y: order.indexOf(index) * 50,
+//           x: order.indexOf(index) * 50,
+//           scale: 1,
+//           zIndex: 0,
+//           shadow: 1,
+//           immediate: false,
+//         };
 
 const StudentsPage = () => {
   let value: any = [];
@@ -53,7 +54,7 @@ const StudentsPage = () => {
 
   // Get values from local storage if they exist
   useEffect(() => {
-    console.log("Springs", springs);
+    // console.log("Springs", springs);
 
     if ("groups" in localStorage) {
       value = JSON.parse(localStorage.getItem("groups") as string);
@@ -68,33 +69,33 @@ const StudentsPage = () => {
     (person) => person.enrollments[0].type === "StudentEnrollment"
   );
 
-  const order = useRef(students.map((_, index) => index));
-  const [springs, api] = useSprings(
-    students.length,
-    animationFn(order.current)
-  );
+  // const order = useRef(students.map((_, index) => index));
+  // const [springs, api] = useSprings(
+  //   students.length,
+  //   animationFn(order.current)
+  // );
 
-  const swap = (arr: number[], index1: number, index2: number): number[] => {
-    return ([arr[index1], arr[index2]] = [arr[index2], arr[index1]]);
-  };
+  // const swap = (arr: number[], index1: number, index2: number): number[] => {
+  //   return ([arr[index1], arr[index2]] = [arr[index2], arr[index1]]);
+  // };
 
-  const clamp = (number: number, min: number, max: number) =>
-    Math.max(min, Math.min(number, max));
+  // const clamp = (number: number, min: number, max: number) =>
+  //   Math.max(min, Math.min(number, max));
 
-  const bind = useDrag(
-    ({ args: [originalIndex], active, movement: [x, y] }) => {
-      const curIndex = order.current.indexOf(originalIndex);
-      const curRow = clamp(
-        Math.round((curIndex * 100 + y) / 100),
-        0,
-        students.length - 1
-      );
-      const newOrder = swap(order.current, curIndex, curRow);
-      api.start(animationFn(newOrder, active, originalIndex, curIndex, y, x));
-      // Feed springs new style data, they'll animate the view without causing a single render
-      if (!active) order.current = newOrder;
-    }
-  );
+  // const bind = useDrag(
+  //   ({ args: [originalIndex], active, movement: [x, y] }) => {
+  //     const curIndex = order.current.indexOf(originalIndex);
+  //     const curRow = clamp(
+  //       Math.round((curIndex * 100 + y) / 100),
+  //       0,
+  //       students.length - 1
+  //     );
+  //     const newOrder = swap(order.current, curIndex, curRow);
+  //     api.start(animationFn(newOrder, active, originalIndex, curIndex, y, x));
+  //     // Feed springs new style data, they'll animate the view without causing a single render
+  //     if (!active) order.current = newOrder;
+  //   }
+  // );
   const addGroupMember = (groupId: string, studentId: string) => {
     groups.forEach((group) => {
       const realGroupId = groupId.split("-")[0];
@@ -180,59 +181,9 @@ const StudentsPage = () => {
         <ul
           className={toggleGroupPanel ? styles.panelOpen : styles.studentList}
         >
-          {/* {students?.map((student, i) => (
-            <div key={i}> */}
-          {springs.map(({ zIndex, shadow, y, x, scale }, i) => (
-            <animated.li
-              key={i}
-              {...bind(i)}
-              style={{
-                zIndex,
-                boxShadow: shadow.to(
-                  (s) => `rgba(0, 0, 0, 0.15) 0px ${s}px ${2 * s}px 0px`
-                ),
-                y,
-                x,
-                scale,
-              }}
-              className={styles.listItem}
-              // onClick={() => openModal(student.id)}
-            >
-              <div className={styles.buttonInfo}>
-                {/* {student.avatar_url ? ( */}
-                {/* <Image
-                        className={styles.avatar}
-                        src={student.avatar_url}
-                        alt="Student Avatar"
-                        width={40}
-                        height={40}
-                        // priority
-                      />
-                    ) : (
-                      <Image
-                        className={styles.avatar}
-                        src="/vercel.svg"
-                        alt="Student Avatar"
-                        width={50}
-                        height={50}
-                        // priority
-                      />
-                    )} */}
-                {/* <div className={styles.buttonContent}>{student.name}</div> */}
-                <div className={styles.buttonLogo}>
-                  <Image
-                    src="/unc.png"
-                    alt="UNC Logo"
-                    width={75}
-                    height={75}
-                    // priority
-                  />
-                </div>
-              </div>
-            </animated.li>
+          {students?.map((student, i) => (
+            <StudentCard key={i} student={student as Student} />
           ))}
-          {/* </div> */}
-          {/* ))} */}
         </ul>
       </div>
       <div className={styles.groupButton}>

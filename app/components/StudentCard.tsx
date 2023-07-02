@@ -2,49 +2,26 @@ import type { FC } from "react";
 import type { Student } from "../../types.ts";
 import styles from "../styles/studentlist.module.css";
 import Image from "next/image";
-import { useSpring, animated, to } from "@react-spring/web";
+import { useSpring, animated, to, config } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 
 interface StudentCardProps {
   student: Student;
 }
 
-// const animationFn =
-//   (
-//     order: number[],
-//     active: boolean = false,
-//     originalIndex: number = 0,
-//     curIndex: number = 0,
-//     y: number = 0,
-//     x: number = 0
-//   ) =>
-//   // DOUBLE ARROW FUNCTION :O
-//   (index: number) =>
-//     active && index === originalIndex
-//       ? {
-//           y: curIndex * 100 + y,
-//           x: curIndex * 100 + x,
-//           scale: 1.1,
-//           zIndex: "1",
-//           shadow: 15,
-//           // determines which properties are animated immediately
-//           immediate: (key: string) =>
-//             key === "y" || key === "zIndex" || key === "x",
-//         }
-//       : {
-//           y: order.indexOf(index) * 50,
-//           x: order.indexOf(index) * 50,
-//           scale: 1,
-//           zIndex: 0,
-//           shadow: 1,
-//           immediate: false,
-//         };
-
 const StudentCard: FC<StudentCardProps> = ({ student }) => {
-  const [{ x, y }, set] = useSpring(() => ({ x: 0, y: 0 }));
+  const [{ x, y }, set] = useSpring(() => ({
+    x: 0,
+    y: 0,
+    config: config.default,
+  }));
 
   const bind = useDrag(({ down, movement: [mx, my] }) => {
-    set({ x: down ? mx : 0, y: down ? my : 0 });
+    set({
+      x: down ? mx : 0,
+      y: down ? my : 0,
+      config: down ? config.wobbly : config.default,
+    });
   });
 
   return (
@@ -54,7 +31,8 @@ const StudentCard: FC<StudentCardProps> = ({ student }) => {
         style={{
           transform: to(
             [x, y],
-            (xValue, yValue) => `translate3d(${xValue}px, ${yValue}px, 0)`
+            (xValue: number, yValue: number) =>
+              `translate3d(${xValue}px, ${yValue}px, 0)`
           ),
         }}
         className={styles.listItem}

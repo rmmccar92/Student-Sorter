@@ -62,7 +62,7 @@ const StudentsPage = () => {
 
   const findStudent = (id: number) => {
     console.log("ID", id);
-    const student = data.find((student) => student.id === id);
+    const student = data.find((student) => parseInt(student.id) === id);
     console.log(`${student?.name}`, student);
     return student;
   };
@@ -121,7 +121,7 @@ const StudentsPage = () => {
         <ul
           className={toggleGroupPanel ? styles.panelOpen : styles.studentList}
         >
-          {students?.map((student, i) => (
+          {students?.map((student: unknown, i) => (
             <StudentCard key={i} student={student as Student} />
           ))}
         </ul>

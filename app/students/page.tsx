@@ -22,6 +22,11 @@ const StudentsPage = () => {
   // Get values from local storage if they exist
   useEffect(() => {
     // console.log("Springs", springs);
+    const getSudents = async () => {
+      const results = await fetch("/getStudents");
+      console.log("RESULTS", results);
+    };
+    getSudents();
 
     if ("groups" in localStorage) {
       value = JSON.parse(localStorage.getItem("groups") as string);

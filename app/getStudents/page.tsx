@@ -1,43 +1,13 @@
-// const results = await fetch(
-//     "https://courses.bootcampspot.com/api/v1/courses/3710/users?include_inactive=true&include%5B%5D=avatar_url&include%5B%5D=enrollments&include%5B%5D=email&include%5B%5D=observed_users&include%5B%5D=can_be_removed&include%5B%5D=custom_links&per_page=50"
-//   );
-
-// Headers?
-// -H 'if-none-match: W/"6efc07a0a2cf8b528e9348d4a3e11c9a"' \
-//   -H 'referer: https://courses.bootcampspot.com/courses/3710/users' \
-//   -H 'sec-ch-ua: "Not.A/Brand";v="8", "Chromium";v="114", "Google Chrome";v="114"' \
-//   -H 'sec-ch-ua-mobile: ?0' \
-//   -H 'sec-ch-ua-platform: "macOS"' \
-//   -H 'sec-fetch-dest: empty' \
-//   -H 'sec-fetch-mode: cors' \
-//   -H 'sec-fetch-site: same-origin' \
-//   -H 'sentry-trace: f65ebb1ce6ec4256b170dd9ae33411ff-befed457fc0b8b79-0' \
-//   -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36' \
-//   -H 'x-csrf-token: Ggo1mrmfqQrt9fUWw+SxkYuyrgGaaAP0kGbwxcTDbuNUYQbJ3auCWpSCgVy0lOnr7fWWR8svaLe7CYqEjKY5pQ==' \
-//   -H 'x-requested-with: XMLHttpRequest' \
-//   --compressed
+import data from "../../data/people.json";
+import styles from "../styles/studentlist.module.css";
+import Image from "next/image";
+import GroupsComponent from "../components/Groups";
+import StudentModal from "../components/StudentModal";
+import GroupsPanel from "../components/GroupsPanel.tsx";
+import StudentCard from "../components/StudentCard.tsx";
+import type { Student, Group } from "../../types.ts";
 
 interface pageProps {}
-const url =
-  "https://courses.bootcampspot.com/api/v1/courses/3710/users?include_inactive=true&include%5B%5D=avatar_url&include%5B%5D=enrollments&include%5B%5D=email&include%5B%5D=observed_users&include%5B%5D=can_be_removed&include%5B%5D=custom_links&per_page=50";
-const headers = {
-  "Content-Type": "application/json",
-  "if-none-match": 'W/"6efc07a0a2cf8b528e9348d4a3e11c9a"',
-  "referer": "https://courses.bootcampspot.com/courses/3710/users",
-  "sec-ch-ua":
-    '"Not.A/Brand";v="8", "Chromium";v="114", "Google Chrome";v="114"',
-  "sec-ch-ua-mobile": "?0",
-  "sec-ch-ua-platform": '"macOS"',
-  "sec-fetch-dest": "empty",
-  "sec-fetch-mode": "cors",
-  "sec-fetch-site": "same-origin",
-  "sentry-trace": "f65ebb1ce6ec4256b170dd9ae33411ff-befed457fc0b8b79-0",
-  "user-agent":
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome",
-  "x-csrf-token":
-    "Ggo1mrmfqQrt9fUWw+SxkYuyrgGaaAP0kGbwxcTDbuNUYQbJ3auCWpSCgVy0lOnr7fWWR8svaLe7CYqEjKY5pQ==",
-  "x-requested-with": "XMLHttpRequest",
-};
 
 const page: any = async ({}) => {
   const studentData = await fetch(
@@ -71,8 +41,8 @@ const page: any = async ({}) => {
 
   const data = await studentData.json();
 
-  console.log("DATA", data);
+  // console.log("DATA", data);
   //   console.log("STUDENT DATA", studentData.json());
-  return null;
+  return data;
 };
 export default page;

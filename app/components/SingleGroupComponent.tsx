@@ -1,29 +1,30 @@
+"use-client";
+import { useCallback } from "react";
+import { useDropzone } from "react-dropzone";
 import type { FC } from "react";
 import styles from "../styles/singleGroupComponent.module.css";
-import { Droppable } from "react-beautiful-dnd";
-import type { Group } from "../../types.ts";
+import type { Group, Student } from "../../types.ts";
+import DropZone from "react-dropzone";
+
 interface SingleGroupComponentProps {
   group: Group;
+  getInputProps: any;
   // dragEndHandler: (result: any) => void;
 }
 
 const SingleGroupComponent: FC<SingleGroupComponentProps> = ({
   group,
+  getInputProps,
   // dragEndHandler,
 }) => {
-  console.log("GROUP!!!", group);
+  // console.log("GROUP!!!", group);
+
   return (
     <div className={styles.groupBox}>
+      <input {...getInputProps} className={styles.groupInput} />
       <h2>{group.name}</h2>
-      {/* <Droppable droppableId={`${group?.id.toString()}-${group.name}`}>
-        {(provided, snapShot) => ( */}
-      <ul
-        // {...provided.droppableProps}
-        // ref={provided.innerRef}
-        role="listitem"
-      >
-        {/* {provided.placeholder} */}
-        {group?.members?.map((member, i) => (
+      <ul role="listitem">
+        {group?.members?.map((member: Student, i) => (
           <li key={member.id} className={styles.listItem}>
             <div className={styles.listItemContent}>
               <img
@@ -36,8 +37,6 @@ const SingleGroupComponent: FC<SingleGroupComponentProps> = ({
           </li>
         ))}
       </ul>
-      {/* )}
-      </Droppable> */}
     </div>
   );
 };

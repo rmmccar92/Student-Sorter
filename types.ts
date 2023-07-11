@@ -48,5 +48,5 @@ export type Student = {
 export type Group = {
   id: number;
   name: string;
-  members: string[];
+  members: Student[];
 };

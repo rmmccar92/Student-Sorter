@@ -63,6 +63,7 @@
   white-space: nowrap;
   will-change: box-shadow, transform;
   font-size: 18px;
+  z-index: 9999;
 }
 
 .listItem:focus {

@@ -1,8 +1,9 @@
 import styles from "../styles/groupsPanel.module.css";
-import { use, useState } from "react";
 import SingleGroupComponent from "./SingleGroupComponent";
-import { Droppable } from "react-beautiful-dnd";
+import { useCallback } from "react";
 import type { Group } from "../../types.ts";
+import DropZone from "react-dropzone";
+import { useDropzone } from "react-dropzone";
 
 interface PanelProps {
   toggle: boolean;
@@ -19,6 +20,11 @@ const GroupsPanel = ({
   setGroups,
 }: // dragEndHandler,
 PanelProps) => {
+  const onDrop = useCallback((acceptedFiles: unknown): void => {
+    console.log("Dropped");
+  }, []);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
   const handleAdd = () => {
     console.log("Add Group");
     setGroups([
@@ -50,11 +56,15 @@ PanelProps) => {
           {groups[0]?.name &&
             groups.map((group, i) => {
               return (
-                <SingleGroupComponent
-                  key={i}
-                  group={group}
-                  // dragEndHandler={dragEndHandler}
-                />
+                <DropZone onDrop={onDrop} key={i}>
+                  {({ getRootProps }) => (
+                    <SingleGroupComponent
+                      {...getRootProps}
+                      group={group}
+                      // dragEndHandler={dragEndHandler}
+                    />
+                  )}
+                </DropZone>
               );
             })}
           <button className={styles.addGroupButton} onClick={handleAdd}>

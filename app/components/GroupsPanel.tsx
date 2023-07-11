@@ -60,6 +60,7 @@ PanelProps) => {
                   {({ getRootProps }) => (
                     <SingleGroupComponent
                       {...getRootProps}
+                      getInputProps={getInputProps}
                       group={group}
                       // dragEndHandler={dragEndHandler}
                     />

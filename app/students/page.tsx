@@ -22,6 +22,11 @@ const StudentsPage = () => {
   // Get values from local storage if they exist
   useEffect(() => {
     // console.log("Springs", springs);
+    const getSudents = async () => {
+      const results = await fetch("/getStudents");
+      console.log("RESULTS", results);
+    };
+    getSudents();
 
     if ("groups" in localStorage) {
       value = JSON.parse(localStorage.getItem("groups") as string);
@@ -62,7 +67,7 @@ const StudentsPage = () => {
 
   const findStudent = (id: number) => {
     console.log("ID", id);
-    const student = data.find((student) => student.id === id);
+    const student = data.find((student) => parseInt(student.id) === id);
     console.log(`${student?.name}`, student);
     return student;
   };
@@ -121,7 +126,7 @@ const StudentsPage = () => {
         <ul
           className={toggleGroupPanel ? styles.panelOpen : styles.studentList}
         >
-          {students?.map((student, i) => (
+          {students?.map((student: unknown, i) => (
             <StudentCard key={i} student={student as Student} />
           ))}
         </ul>

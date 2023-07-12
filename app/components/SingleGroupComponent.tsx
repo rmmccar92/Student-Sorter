@@ -1,52 +1,29 @@
 "use-client";
-import { useCallback } from "react";
-import { useDropzone } from "react-dropzone";
 import type { FC } from "react";
 import styles from "../styles/singleGroupComponent.module.css";
 import type { Group, Student } from "../../types.ts";
-import DropZone from "react-dropzone";
-
+import { useDroppable } from "@dnd-kit/core";
 interface SingleGroupComponentProps {
   group: Group;
-  getInputProps: any;
   // dragEndHandler: (result: any) => void;
 }
 
 const SingleGroupComponent: FC<SingleGroupComponentProps> = ({
   group,
-  getInputProps,
   // dragEndHandler,
 }) => {
   // console.log("GROUP!!!", group);
 
-  const handleDragEnter = (e: any) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log("Hi!");
-  };
-  const handleDragLeave = (e: any) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log("Bye!");
-  };
-  const handleDragOver = (e: any) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-  const handleDrop = (e: any) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const { isOver, setNodeRef } = useDroppable({
+    id: `droppable-${group.id}`,
+  });
+
+  const style = {
+    color: isOver ? "green" : undefined,
   };
 
   return (
-    <div
-      className={styles.groupBox}
-      onDragEnter={handleDragEnter}
-      onDragLeave={handleDragLeave}
-      onDragOver={handleDragOver}
-      onDrag={handleDrop}
-    >
-      {/* <input {...getInputProps} className={styles.groupInput} /> */}
+    <div ref={setNodeRef} className={styles.groupBox} style={style}>
       <h2>{group.name}</h2>
       <ul role="listitem">
         {group?.members?.map((member: Student, i) => (

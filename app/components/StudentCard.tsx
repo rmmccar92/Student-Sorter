@@ -3,39 +3,30 @@ import type { Student } from "../../types.ts";
 import styles from "../styles/studentlist.module.css";
 import Image from "next/image";
 import { useSpring, animated, to, config } from "@react-spring/web";
-import { useDrag } from "@use-gesture/react";
+// import { useDrag } from "@use-gesture/react";
+import { useDraggable } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities";
 
 interface StudentCardProps {
   student: Student;
 }
 
 const StudentCard: FC<StudentCardProps> = ({ student }) => {
-  const [{ x, y }, set] = useSpring(() => ({
-    x: 0,
-    y: 0,
-    config: config.default,
-  }));
-
-  const bind = useDrag(({ down, movement: [mx, my] }) => {
-    set({
-      x: down ? mx : 0,
-      y: down ? my : 0,
-      config: down ? config.wobbly : config.default,
-    });
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: `draggable-${student.id}`,
   });
-
+  const style = transform
+    ? {
+        transform: CSS.Translate.toString(transform),
+      }
+    : undefined;
   return (
     <>
-      <animated.li
-        {...bind()}
-        draggable={true}
-        style={{
-          transform: to(
-            [x, y],
-            (xValue: number, yValue: number) =>
-              `translate3d(${xValue}px, ${yValue}px, 0)`
-          ),
-        }}
+      <li
+        ref={setNodeRef}
+        style={style}
+        {...listeners}
+        {...attributes}
         className={styles.listItem}
         // onClick={() => openModal(student.id)}
       >
@@ -70,7 +61,7 @@ const StudentCard: FC<StudentCardProps> = ({ student }) => {
             />
           </div>
         </div>
-      </animated.li>
+      </li>
     </>
   );
 };

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import data from "../../data/people.json";
 import styles from "../styles/studentlist.module.css";
 import Image from "next/image";
@@ -8,6 +8,7 @@ import StudentModal from "../components/StudentModal";
 import GroupsPanel from "../components/GroupsPanel.tsx";
 import StudentCard from "../components/StudentCard.tsx";
 import type { Student, Group } from "../../types.ts";
+import { DndContext, DragOverlay } from "@dnd-kit/core";
 
 const StudentsPage = () => {
   let value: any = [];
@@ -22,11 +23,11 @@ const StudentsPage = () => {
   // Get values from local storage if they exist
   useEffect(() => {
     // console.log("Springs", springs);
-    const getSudents = async () => {
-      const results = await fetch("/getStudents");
-      console.log("RESULTS", results);
-    };
-    getSudents();
+    // const getSudents = async () => {
+    //   const results = await fetch("/getStudents");
+    //   console.log("RESULTS", results);
+    // };
+    // getSudents();
 
     if ("groups" in localStorage) {
       value = JSON.parse(localStorage.getItem("groups") as string);
@@ -85,8 +86,16 @@ const StudentsPage = () => {
     const fullName = firstName + " " + lastName;
     return fullName;
   };
+
+  const handleDragStart = (event: any) => {
+    console.log("Hi!");
+  };
+
+  const handleDragEnd = (event: any) => {
+    console.log("Bye!");
+  };
   return (
-    <>
+    <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       {isOpen && (
         <>
           <StudentModal
@@ -146,7 +155,8 @@ const StudentsPage = () => {
           // dragEndHandler={dragEndHandler}
         />
       )}
-    </>
+      {/* <DragOverlay></DragOverlay> */}
+    </DndContext>
   );
 };
 

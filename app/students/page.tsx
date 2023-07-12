@@ -44,7 +44,7 @@ const StudentsPage = () => {
 
   const addGroupMember = (groupId: string, studentId: string) => {
     groups.forEach((group) => {
-      const realGroupId = groupId.split("-")[0];
+      //   const realGroupId = groupId.split("-")[0];
       // console.log(
       //   "GROUP ID",
       //   realGroupId,
@@ -52,7 +52,7 @@ const StudentsPage = () => {
       //   group.id.toString(),
       //   studentId
       // );
-      if (realGroupId === group.id.toString()) {
+      if (groupId === group.id.toString()) {
         const foundStudent: any = findStudent(parseInt(studentId));
         // const updatedMembers = [...groups, group.members.push(foundStudent)];
         const updatedMembers = group.members.push(foundStudent);
@@ -92,7 +92,18 @@ const StudentsPage = () => {
   };
 
   const handleDragEnd = (event: any) => {
-    console.log("Bye!");
+    console.log("Bye!", event);
+
+    if (!event.over) {
+      return;
+    }
+    const groupId = event.over.id.split("-")[1];
+    console.log("GROUP ID", groupId);
+
+    const studentId = event.active.id.split("-")[1];
+    console.log("STUDENT ID", studentId);
+
+    addGroupMember(groupId, studentId);
   };
   return (
     <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>

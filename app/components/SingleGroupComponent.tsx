@@ -23,7 +23,13 @@ const SingleGroupComponent: FC<SingleGroupComponentProps> = ({
   };
 
   return (
-    <div ref={setNodeRef} className={styles.groupBox} style={style}>
+    <div
+      ref={setNodeRef}
+      className={styles.groupBox}
+      style={style}
+      // @ts-ignore
+      // disabled={isOver ? false : true}
+    >
       <h2>{group.name}</h2>
       <ul role="listitem">
         {group?.members?.map((member: Student, i) => (

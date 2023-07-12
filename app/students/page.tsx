@@ -67,7 +67,7 @@ const StudentsPage = () => {
 
   const findStudent = (id: number) => {
     console.log("ID", id);
-    const student = data.find((student) => parseInt(student.id) === id);
+    const student = data.find((student) => student.id === id);
     console.log(`${student?.name}`, student);
     return student;
   };

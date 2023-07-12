@@ -31,9 +31,9 @@ export default function Home() {
           <Link href="/students">
             <h3>Student List</h3>
           </Link>
-          <Link href="/getStudents">
+          {/* <Link href="/getStudents">
             <h3>Server Students</h3>
-          </Link>
+          </Link> */}
         </div>
       </div>
 

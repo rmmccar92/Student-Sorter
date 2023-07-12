@@ -19,9 +19,34 @@ const SingleGroupComponent: FC<SingleGroupComponentProps> = ({
 }) => {
   // console.log("GROUP!!!", group);
 
+  const handleDragEnter = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("Hi!");
+  };
+  const handleDragLeave = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("Bye!");
+  };
+  const handleDragOver = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+  const handleDrop = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   return (
-    <div className={styles.groupBox}>
-      <input {...getInputProps} className={styles.groupInput} />
+    <div
+      className={styles.groupBox}
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      onDragOver={handleDragOver}
+      onDrag={handleDrop}
+    >
+      {/* <input {...getInputProps} className={styles.groupInput} /> */}
       <h2>{group.name}</h2>
       <ul role="listitem">
         {group?.members?.map((member: Student, i) => (

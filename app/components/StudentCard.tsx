@@ -28,6 +28,7 @@ const StudentCard: FC<StudentCardProps> = ({ student }) => {
     <>
       <animated.li
         {...bind()}
+        draggable={true}
         style={{
           transform: to(
             [x, y],

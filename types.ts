@@ -49,5 +49,6 @@ export type Group = {
   id: number;
   name: string;
   members: Student[];
+  color: string;
 };
 // Test 2

@@ -1,5 +1,6 @@
 "use-client";
 import type { FC } from "react";
+import { useState } from "react";
 import styles from "../styles/singleGroupComponent.module.css";
 import type { Group, Student } from "../../types.ts";
 import { useDroppable } from "@dnd-kit/core";
@@ -19,7 +20,9 @@ const SingleGroupComponent: FC<SingleGroupComponentProps> = ({
   });
 
   const style = {
+    background: group.color,
     color: isOver ? "green" : undefined,
+    border: isOver ? "1px solid green" : "1px solid black",
   };
 
   return (
@@ -28,7 +31,7 @@ const SingleGroupComponent: FC<SingleGroupComponentProps> = ({
       className={styles.groupBox}
       style={style}
       // @ts-ignore
-      // disabled={isOver ? false : true}
+      disabled={isOver ? false : true}
     >
       <h2>{group.name}</h2>
       <ul role="listitem">

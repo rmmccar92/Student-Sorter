@@ -54,8 +54,6 @@ const StudentsPage = () => {
       // );
       if (groupId === group.id.toString()) {
         const foundStudent: any = findStudent(parseInt(studentId));
-        const groupMembers = [...group.members];
-        // const updatedMembers = [...groups, group.members.push(foundStudent)];
         const updatedMembers = group.members.push(foundStudent);
         console.log("UPDATED MEMBERS", updatedMembers);
         // setGroups(updatedMembers as any);

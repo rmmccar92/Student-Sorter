@@ -40,15 +40,17 @@ PanelProps) => {
   const handleAdd = () => {
     console.log("Add Group");
     const bgColor = generateGradient();
-    setGroups([
-      ...groups,
-      {
-        name: `Group ${groups.length + 1}`,
-        id: groups.length + 1,
-        members: [],
-        color: bgColor,
-      },
-    ]);
+    setGroups((groups) => {
+      return [
+        ...groups,
+        {
+          name: `Group ${groups.length + 1}`,
+          id: groups.length + 1,
+          members: [],
+          color: bgColor,
+        },
+      ];
+    });
     localStorage.setItem(
       "groups",
       JSON.stringify([
@@ -57,6 +59,7 @@ PanelProps) => {
           name: `Group ${groups.length + 1}`,
           id: groups.length + 1,
           members: [],
+          color: bgColor,
         },
       ])
     );

@@ -19,3 +19,7 @@
 //   const fullName = firstName + " " + lastName;
 //   return <div>Hi! {fullName}</div>;
 // }
+
+export async function Page() {
+  return <div>Hi!</div>;
+}

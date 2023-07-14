@@ -18,7 +18,6 @@ const StudentsPage = () => {
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [toggleGroupPanel, setToggleGroupPanel] = useState<boolean>(false);
   const [groups, setGroups] = useState<Group[] | []>([]);
-  // animation coordinates
 
   // Get values from local storage if they exist
   useEffect(() => {
@@ -84,25 +83,9 @@ const StudentsPage = () => {
     return fullName;
   };
 
-  const handleDragStart = (event: any) => {
+  const handleDragStart = () => {
     console.log("Hi!");
   };
-
-  // const handleDragEnd = (event: any) => {
-  //   console.log("Bye!", event);
-
-  //   if (!event.over) {
-  //     return;
-  //   }
-  //   const groupId = event.over.id.split("-")[1];
-  //   console.log("GROUP ID", groupId);
-
-  //   const studentId = event.active.id.split("-")[1];
-  //   console.log("STUDENT ID", studentId);
-
-  //   addGroupMember(groupId, studentId);
-  // };
-
   const dragEndHandler = (result: any) => {
     console.log("RESULT", result);
     const { destination, source, draggableId } = result;

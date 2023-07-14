@@ -1,9 +1,7 @@
 "use-client";
 import type { FC } from "react";
-import { useState } from "react";
 import styles from "../styles/singleGroupComponent.module.css";
 import type { Group, Student } from "../../types.ts";
-// import { useDroppable } from "@dnd-kit/core";
 import { Droppable } from "@hello-pangea/dnd";
 interface SingleGroupComponentProps {
   group: Group;
@@ -16,24 +14,12 @@ const SingleGroupComponent: FC<SingleGroupComponentProps> = ({
 }) => {
   // console.log("GROUP!!!", group);
 
-  // const { isOver, setNodeRef } = useDroppable({
-  //   id: `droppable-${group.id}`,
-  // });
-
   const style = {
     background: group.color,
-    // color: isOver ? "green" : undefined,
-    // border: isOver ? "1px solid green" : "1px solid black",
   };
 
   return (
-    <div
-      // ref={setNodeRef}
-      className={styles.groupBox}
-      style={style}
-      // @ts-ignore
-      // disabled={isOver ? false : true}
-    >
+    <div className={styles.groupBox} style={style}>
       <h2>{group.name}</h2>
       <Droppable droppableId={`droppable-${group.id}`}>
         {(provided, snapshot) => (

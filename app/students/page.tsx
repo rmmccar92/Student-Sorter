@@ -80,7 +80,9 @@ const StudentsPage = () => {
 
   const findStudent = (id: number) => {
     console.log("ID", id, "LIST", students, id);
-    const found = students.find((student) => parseInt(student.id) === id);
+    const found = students.find(
+      (student: Student) => parseInt(student.id) === id
+    );
     console.log("FOUND", found);
     return found;
   };

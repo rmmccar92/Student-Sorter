@@ -1,5 +1,5 @@
 export type Student = {
-  id: number;
+  id: string;
   name: string;
   created_at: string;
   sortable_name: string;

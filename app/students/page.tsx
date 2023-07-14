@@ -42,7 +42,7 @@ const StudentsPage = () => {
   );
 
   const addGroupMember = (groupId: string, studentId: string) => {
-    console.log("GROUP ID", groupId, "STUDENT ID", studentId);
+    // console.log("GROUP ID", groupId, "STUDENT ID", studentId);
     groups.forEach((group) => {
       const realGroupId = groupId.split("-")[1];
       // console.log(
@@ -54,10 +54,15 @@ const StudentsPage = () => {
       // );
       if (realGroupId === group.id.toString()) {
         const foundStudent: any = findStudent(parseInt(studentId));
-        const updatedMembers = group.members.push(foundStudent);
-        console.log("UPDATED MEMBERS", updatedMembers);
-        // setGroups(updatedMembers as any);
-        localStorage.setItem("groups", JSON.stringify(groups));
+        if (foundStudent.group === group.id) {
+          console.log("Student already in group");
+          return;
+        } else {
+          foundStudent.group = group.id;
+          const updatedMembers = group.members.push(foundStudent);
+          // console.log("UPDATED MEMBERS", updatedMembers);
+          localStorage.setItem("groups", JSON.stringify(groups));
+        }
       }
     });
   };
@@ -87,7 +92,7 @@ const StudentsPage = () => {
     console.log("Hi!");
   };
   const dragEndHandler = (result: any) => {
-    console.log("RESULT", result);
+    // console.log("RESULT", result);
     const { destination, source, draggableId } = result;
     if (!destination) {
       return;
@@ -98,7 +103,7 @@ const StudentsPage = () => {
     ) {
       return;
     } else {
-      console.log("DESTINATION", destination);
+      // console.log("DESTINATION", destination);
       addGroupMember(destination.droppableId, draggableId);
     }
   };
@@ -152,8 +157,8 @@ const StudentsPage = () => {
                 }
               >
                 {provided.placeholder}
-                {students?.map((student: unknown, i) => (
-                  <StudentCard key={i} i={i} student={student as Student} />
+                {students?.map((student: Student, i) => (
+                  <StudentCard key={i} i={i} student={student} />
                 ))}
               </ul>
             )}
@@ -171,10 +176,8 @@ const StudentsPage = () => {
             setToggle={setToggleGroupPanel}
             groups={groups}
             setGroups={setGroups}
-            // dragEndHandler={dragEndHandler}
           />
         )}
-        {/* <DragOverlay></DragOverlay> */}
       </DragDropContext>
     </>
   );

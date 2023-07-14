@@ -3,15 +3,12 @@ import type { FC } from "react";
 import styles from "../styles/singleGroupComponent.module.css";
 import type { Group, Student } from "../../types.ts";
 import { Droppable } from "@hello-pangea/dnd";
+import Image from "next/image";
 interface SingleGroupComponentProps {
   group: Group;
-  // dragEndHandler: (result: any) => void;
 }
 
-const SingleGroupComponent: FC<SingleGroupComponentProps> = ({
-  group,
-  // dragEndHandler,
-}) => {
+const SingleGroupComponent: FC<SingleGroupComponentProps> = ({ group }) => {
   // console.log("GROUP!!!", group);
 
   const style = {
@@ -32,7 +29,9 @@ const SingleGroupComponent: FC<SingleGroupComponentProps> = ({
             {group?.members?.map((member: Student, i) => (
               <li key={member.id} className={styles.listItem}>
                 <div className={styles.listItemContent}>
-                  <img
+                  <Image
+                    width={50}
+                    height={50}
                     src={member.avatar_url}
                     alt={member.name}
                     className={styles.avatar}

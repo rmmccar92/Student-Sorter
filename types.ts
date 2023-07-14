@@ -22,14 +22,14 @@ export type Student = {
     enrollment_state: string;
     role: string;
     role_id: number;
-    grades: {
+    grades?: {
       html_url: string;
-      current_grade: null;
-      current_score: null;
+      current_grade: string | null;
+      current_score: number | null;
       final_grade: string;
       final_score: number;
-      unposted_current_score: null;
-      unposted_current_grade: null;
+      unposted_current_score: number | null;
+      unposted_current_grade: string | null;
       unposted_final_score: number;
       unposted_final_grade: string;
     };
@@ -42,7 +42,8 @@ export type Student = {
     icon_class: string;
     text: string;
   }[];
-  analytics_url: string;
+  analytics_url?: string | null;
+  group?: number;
 };
 
 export type Group = {

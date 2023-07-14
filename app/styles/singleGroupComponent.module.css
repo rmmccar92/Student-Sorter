@@ -13,3 +13,19 @@
   margin-top: 20px;
   padding: 20px;
 }
+
+.listItemContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.listItem {
+  list-style: none;
+}
+
+.avatar {
+  border-radius: 50%;
+  margin-bottom: 10px;
+}

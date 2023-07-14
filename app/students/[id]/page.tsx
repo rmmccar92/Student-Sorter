@@ -20,6 +20,6 @@
 //   return <div>Hi! {fullName}</div>;
 // }
 
-export async function Page() {
+export async function StudnetID() {
   return <div>Hi!</div>;
 }

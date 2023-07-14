@@ -8,7 +8,7 @@ import StudentModal from "../components/StudentModal";
 import GroupsPanel from "../components/GroupsPanel.tsx";
 import StudentCard from "../components/StudentCard.tsx";
 import type { Student, Group } from "../../types.ts";
-import { DndContext, DragOverlay } from "@dnd-kit/core";
+import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 
 const StudentsPage = () => {
   let value: any = [];
@@ -43,8 +43,9 @@ const StudentsPage = () => {
   );
 
   const addGroupMember = (groupId: string, studentId: string) => {
+    console.log("GROUP ID", groupId, "STUDENT ID", studentId);
     groups.forEach((group) => {
-      //   const realGroupId = groupId.split("-")[0];
+      const realGroupId = groupId.split("-")[1];
       // console.log(
       //   "GROUP ID",
       //   realGroupId,
@@ -52,7 +53,7 @@ const StudentsPage = () => {
       //   group.id.toString(),
       //   studentId
       // );
-      if (groupId === group.id.toString()) {
+      if (realGroupId === group.id.toString()) {
         const foundStudent: any = findStudent(parseInt(studentId));
         const updatedMembers = group.members.push(foundStudent);
         console.log("UPDATED MEMBERS", updatedMembers);
@@ -87,22 +88,39 @@ const StudentsPage = () => {
     console.log("Hi!");
   };
 
-  const handleDragEnd = (event: any) => {
-    console.log("Bye!", event);
+  // const handleDragEnd = (event: any) => {
+  //   console.log("Bye!", event);
 
-    if (!event.over) {
+  //   if (!event.over) {
+  //     return;
+  //   }
+  //   const groupId = event.over.id.split("-")[1];
+  //   console.log("GROUP ID", groupId);
+
+  //   const studentId = event.active.id.split("-")[1];
+  //   console.log("STUDENT ID", studentId);
+
+  //   addGroupMember(groupId, studentId);
+  // };
+
+  const dragEndHandler = (result: any) => {
+    console.log("RESULT", result);
+    const { destination, source, draggableId } = result;
+    if (!destination) {
       return;
     }
-    const groupId = event.over.id.split("-")[1];
-    console.log("GROUP ID", groupId);
-
-    const studentId = event.active.id.split("-")[1];
-    console.log("STUDENT ID", studentId);
-
-    addGroupMember(groupId, studentId);
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    } else {
+      console.log("DESTINATION", destination);
+      addGroupMember(destination.droppableId, draggableId);
+    }
   };
   return (
-    <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+    <>
       {isOpen && (
         <>
           <StudentModal
@@ -138,32 +156,44 @@ const StudentsPage = () => {
         </>
       )}
       <h1 className={styles.title}>Students</h1>
-      <div className={styles.studentPage}>
-        <ul
-          className={toggleGroupPanel ? styles.panelOpen : styles.studentList}
-        >
-          {students?.map((student: unknown, i) => (
-            <StudentCard key={i} student={student as Student} />
-          ))}
-        </ul>
-      </div>
-      <div className={styles.groupButton}>
-        <GroupsComponent
-          toggle={toggleGroupPanel}
-          setToggle={setToggleGroupPanel}
-        />
-      </div>
-      {toggleGroupPanel && (
-        <GroupsPanel
-          toggle={toggleGroupPanel}
-          setToggle={setToggleGroupPanel}
-          groups={groups}
-          setGroups={setGroups}
-          // dragEndHandler={dragEndHandler}
-        />
-      )}
-      {/* <DragOverlay></DragOverlay> */}
-    </DndContext>
+      <DragDropContext onDragStart={handleDragStart} onDragEnd={dragEndHandler}>
+        <div className={styles.studentPage}>
+          <Droppable droppableId="1">
+            {(provided, snapshot) => (
+              <ul
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                role="list"
+                className={
+                  toggleGroupPanel ? styles.panelOpen : styles.studentList
+                }
+              >
+                {provided.placeholder}
+                {students?.map((student: unknown, i) => (
+                  <StudentCard key={i} i={i} student={student as Student} />
+                ))}
+              </ul>
+            )}
+          </Droppable>
+        </div>
+        <div className={styles.groupButton}>
+          <GroupsComponent
+            toggle={toggleGroupPanel}
+            setToggle={setToggleGroupPanel}
+          />
+        </div>
+        {toggleGroupPanel && (
+          <GroupsPanel
+            toggle={toggleGroupPanel}
+            setToggle={setToggleGroupPanel}
+            groups={groups}
+            setGroups={setGroups}
+            // dragEndHandler={dragEndHandler}
+          />
+        )}
+        {/* <DragOverlay></DragOverlay> */}
+      </DragDropContext>
+    </>
   );
 };
 

@@ -113,14 +113,14 @@
 .groupButton button {
   border-radius: 10%;
   padding: 1em;
-
-  background: radial-gradient(
+  background: radial-gradient(100% 100% at 100% 0, #4b9cd3 0, #0824f1a2 100%);
+  border: 1px solid #f1f1f2;
+  /* background: radial-gradient(
     hsla(187, 95%, 48%, 1) 0%,
     hsla(216, 88%, 45%, 1) 65%
-  );
+  ); */
 
   color: black;
-  border: none;
   cursor: pointer;
 }
 .modalInner {

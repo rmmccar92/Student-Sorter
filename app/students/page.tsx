@@ -105,7 +105,7 @@ const StudentsPage = () => {
   };
 
   const handleAdd = () => {
-    console.log("Add Group");
+    // console.log("Add Group");
     const bgColor = generateGradient();
     setGroups((prev) => {
       return [

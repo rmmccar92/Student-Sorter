@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, Suspense } from "react";
 // import data from "../../data/people.json";
 import styles from "../styles/studentlist.module.css";
 import Image from "next/image";
@@ -22,7 +22,7 @@ const StudentsPage = () => {
   const [list, setList] = useState<Student[] | []>([]);
   // Get values from local storage if they exist
   useEffect(() => {
-    const getSudents = async () => {
+    const getStudents = async () => {
       const results = await fetch("/api/students");
       const list = await results.json();
       setList(list);
@@ -40,7 +40,7 @@ const StudentsPage = () => {
 
       setStudents(updatedStudents);
     };
-    getSudents();
+    getStudents();
 
     if ("groups" in localStorage) {
       value = JSON.parse(localStorage.getItem("groups") as string);
@@ -212,42 +212,47 @@ const StudentsPage = () => {
         </>
       )}
       <h1 className={styles.title}>Students</h1>
-      <DragDropContext onDragStart={handleDragStart} onDragEnd={dragEndHandler}>
-        <div className={styles.studentPage}>
-          <Droppable droppableId="1">
-            {(provided, snapshot) => (
-              <ul
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-                role="list"
-                className={
-                  toggleGroupPanel ? styles.panelOpen : styles.studentList
-                }
-              >
-                {provided.placeholder}
-                {students?.map((student: Student, i) => (
-                  <StudentCard key={i} i={i} student={student} />
-                ))}
-              </ul>
-            )}
-          </Droppable>
-        </div>
-        <div className={styles.groupButton}>
-          <GroupsComponent
-            toggle={toggleGroupPanel}
-            setToggle={setToggleGroupPanel}
-          />
-        </div>
-        {toggleGroupPanel && (
-          <GroupsPanel
-            toggle={toggleGroupPanel}
-            setToggle={setToggleGroupPanel}
-            groups={groups}
-            // setGroups={setGroups}
-            handleAdd={handleAdd}
-          />
-        )}
-      </DragDropContext>
+      <Suspense fallback={<div>Loading...</div>}>
+        <DragDropContext
+          onDragStart={handleDragStart}
+          onDragEnd={dragEndHandler}
+        >
+          <div className={styles.studentPage}>
+            <Droppable droppableId="1">
+              {(provided, snapshot) => (
+                <ul
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  role="list"
+                  className={
+                    toggleGroupPanel ? styles.panelOpen : styles.studentList
+                  }
+                >
+                  {provided.placeholder}
+                  {students?.map((student: Student, i) => (
+                    <StudentCard key={i} i={i} student={student} />
+                  ))}
+                </ul>
+              )}
+            </Droppable>
+          </div>
+          <div className={styles.groupButton}>
+            <GroupsComponent
+              toggle={toggleGroupPanel}
+              setToggle={setToggleGroupPanel}
+            />
+          </div>
+          {toggleGroupPanel && (
+            <GroupsPanel
+              toggle={toggleGroupPanel}
+              setToggle={setToggleGroupPanel}
+              groups={groups}
+              // setGroups={setGroups}
+              handleAdd={handleAdd}
+            />
+          )}
+        </DragDropContext>
+      </Suspense>
     </>
   );
 };

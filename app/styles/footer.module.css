@@ -1,0 +1,33 @@
+.footer {
+  background-color: #88b9eb64;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 14px;
+  color: #eef2f5;
+  margin-top: 20px;
+}
+
+.footerIcons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.footerIcons a {
+  margin: 0 10px;
+}
+
+.footerIcons a img:hover {
+  transform: scale(1.25);
+  filter: drop-shadow(16px 16px 20px red) invert(75%);
+  transition: all 0.3s ease-out;
+}
+
+@keyframes color_change {
+  from {
+    filter: hue-rotate(0);
+  }
+  to {
+    filter: hue-rotate(360deg);
+  }
+}

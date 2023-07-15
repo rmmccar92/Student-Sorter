@@ -63,19 +63,73 @@ const StudentsPage = () => {
       //   group.id.toString(),
       //   studentId
       // );
-      if (realGroupId === group.id.toString()) {
+      if (parseInt(realGroupId) === group.id) {
         const foundStudent: any = findStudent(parseInt(studentId));
         if (foundStudent.group === group.id) {
           console.log("Student already in group");
           return;
         } else {
           foundStudent.group = group.id;
-          const updatedMembers = group.members.push(foundStudent);
+          const index = group.id - 1;
+          const tempArr: Student[] = [...group.members, foundStudent];
+          setGroups((prev: any) => {
+            return [
+              ...prev,
+              ...prev[index].members,
+              (prev[index].members = tempArr),
+            ];
+          });
+          // const updatedMembers = group.members.push(foundStudent);
           // console.log("UPDATED MEMBERS", updatedMembers);
           localStorage.setItem("groups", JSON.stringify(groups));
         }
       }
     });
+  };
+
+  let randomColor = () => {
+    let hexString = "0123456789abcdef";
+    let hexCode = "#";
+    for (let i = 0; i < 6; i++) {
+      hexCode += hexString[Math.floor(Math.random() * hexString.length)];
+    }
+    return hexCode;
+  };
+  let generateGradient = () => {
+    let colorOne = randomColor();
+    let colorTwo = randomColor();
+    let angle = Math.floor(Math.random() * 360);
+    const output = `linear-gradient(${angle}deg, ${colorOne}, ${colorTwo})`;
+    console.log(output);
+    return output;
+  };
+
+  const handleAdd = () => {
+    console.log("Add Group");
+    const bgColor = generateGradient();
+    setGroups((prev) => {
+      return [
+        ...prev,
+        {
+          name: `Group ${groups.length + 1}`,
+          id: groups.length + 1,
+          members: [],
+          color: bgColor,
+        },
+      ];
+    });
+    localStorage.setItem(
+      "groups",
+      JSON.stringify([
+        ...groups,
+        {
+          name: `Group ${groups.length + 1}`,
+          id: groups.length + 1,
+          members: [],
+          color: bgColor,
+        },
+      ])
+    );
   };
 
   const findStudent = (id: number) => {
@@ -117,6 +171,7 @@ const StudentsPage = () => {
       return;
     } else {
       // console.log("DESTINATION", destination);
+
       addGroupMember(destination.droppableId, draggableId);
     }
   };
@@ -188,7 +243,8 @@ const StudentsPage = () => {
             toggle={toggleGroupPanel}
             setToggle={setToggleGroupPanel}
             groups={groups}
-            setGroups={setGroups}
+            // setGroups={setGroups}
+            handleAdd={handleAdd}
           />
         )}
       </DragDropContext>

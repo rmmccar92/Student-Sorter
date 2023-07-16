@@ -78,17 +78,19 @@ const StudentsPage = () => {
           const tempArr: Student[] = [...group.members];
           tempArr.push(foundStudent);
           setGroups((prev: any) => {
-            return [
-              ...prev,
-              // ...prev[index].members,
-              (prev[index].members = tempArr),
-            ];
+            return [...prev, (prev[index].members = tempArr)];
           });
           // const updatedMembers = group.members.push(foundStudent);
           // console.log("UPDATED MEMBERS", updatedMembers);
           localStorage.setItem("groups", JSON.stringify(groups));
         }
       }
+    });
+  };
+  const removeFromList = (id: number) => {
+    const tempList = [...list];
+    const updatedList = tempList.filter((student: Student) => {
+      return parseInt(student.id) !== id;
     });
   };
 

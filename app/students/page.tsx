@@ -83,15 +83,18 @@ const StudentsPage = () => {
           // const updatedMembers = group.members.push(foundStudent);
           // console.log("UPDATED MEMBERS", updatedMembers);
           localStorage.setItem("groups", JSON.stringify(groups));
+          removeFromList(parseInt(studentId));
         }
       }
     });
   };
   const removeFromList = (id: number) => {
-    const tempList = [...list];
+    const tempList = [...students];
     const updatedList = tempList.filter((student: Student) => {
       return parseInt(student.id) !== id;
     });
+    setStudents(updatedList);
+    console.log("UPDATED LIST", updatedList);
   };
 
   let randomColor = () => {

@@ -23,6 +23,10 @@ const StudentsPage = () => {
   // Get values from local storage if they exist
   useEffect(() => {
     const getStudents = async () => {
+      if ("students" in localStorage) {
+        setStudents(JSON.parse(localStorage.getItem("students") as string));
+        return;
+      }
       const results = await fetch("/api/students");
       const list = await results.json();
       setList(list);
@@ -39,6 +43,7 @@ const StudentsPage = () => {
         });
 
       setStudents(updatedStudents);
+      localStorage.setItem("students", JSON.stringify(updatedStudents));
     };
     getStudents();
 
@@ -94,7 +99,8 @@ const StudentsPage = () => {
       return parseInt(student.id) !== id;
     });
     setStudents(updatedList);
-    console.log("UPDATED LIST", updatedList);
+    localStorage.setItem("students", JSON.stringify(updatedList));
+    // console.log("UPDATED LIST", updatedList);
   };
 
   let randomColor = () => {

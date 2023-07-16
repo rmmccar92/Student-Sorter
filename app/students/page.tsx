@@ -79,16 +79,25 @@ const StudentsPage = () => {
           return;
         } else {
           foundStudent.group = group.id;
-          const index = group.id - 1;
+          // const index = group.id - 1;
           const tempArr: Student[] = [...group.members];
           tempArr.push(foundStudent);
           setGroups((prev: any) => {
-            return [...prev, (prev[index].members = tempArr)];
+            const updatedGroups = [...prev];
+            const groupIndex = group.id - 1;
+            console.log("GROUP INDEX", groupIndex);
+            updatedGroups[groupIndex] = {
+              ...updatedGroups[groupIndex],
+              members: [...updatedGroups[groupIndex].members, foundStudent],
+            };
+            localStorage.setItem("groups", JSON.stringify(updatedGroups));
+
+            return updatedGroups;
+            // return { ...prev, [index]: { ...prev[index], members: tempArr } };
           });
           // const updatedMembers = group.members.push(foundStudent);
           // console.log("UPDATED MEMBERS", updatedMembers);
-          localStorage.setItem("groups", JSON.stringify(groups));
-          removeFromList(parseInt(studentId));
+          // removeFromList(parseInt(studentId));
         }
       }
     });

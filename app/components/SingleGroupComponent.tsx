@@ -16,15 +16,16 @@ const SingleGroupComponent: FC<SingleGroupComponentProps> = ({ group }) => {
   };
 
   return (
-    <div className={styles.groupBox} style={style}>
-      <h2>{group.name}</h2>
-      <Droppable droppableId={`droppable-${group.id}`}>
-        {(provided, snapshot) => (
-          <ul
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            role="listitem"
-          >
+    <Droppable droppableId={`droppable-${group.id}`}>
+      {(provided, snapshot) => (
+        <div
+          className={styles.groupBox}
+          style={style}
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+        >
+          <h2>{group.name}</h2>
+          <ul role="listitem">
             {provided.placeholder}
             {group?.members?.map((member: Student, i) => (
               <li key={member.id} className={styles.listItem}>
@@ -41,9 +42,9 @@ const SingleGroupComponent: FC<SingleGroupComponentProps> = ({ group }) => {
               </li>
             ))}
           </ul>
-        )}
-      </Droppable>
-    </div>
+        </div>
+      )}
+    </Droppable>
   );
 };
 export default SingleGroupComponent;

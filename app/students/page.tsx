@@ -64,18 +64,23 @@ const StudentsPage = () => {
       //   studentId
       // );
       if (parseInt(realGroupId) === group.id) {
-        const foundStudent: any = findStudent(parseInt(studentId));
+        const foundStudent: Student | undefined = findStudent(
+          parseInt(studentId)
+        );
+
+        if (!foundStudent) return;
         if (foundStudent.group === group.id) {
           console.log("Student already in group");
           return;
         } else {
           foundStudent.group = group.id;
           const index = group.id - 1;
-          const tempArr: Student[] = [...group.members, foundStudent];
+          const tempArr: Student[] = [...group.members];
+          tempArr.push(foundStudent);
           setGroups((prev: any) => {
             return [
               ...prev,
-              ...prev[index].members,
+              // ...prev[index].members,
               (prev[index].members = tempArr),
             ];
           });

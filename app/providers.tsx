@@ -1,22 +1,14 @@
-// "use client";
+"use client";
+import type { FC } from "react";
+import { Provider } from "react-redux";
+import { store } from "../store/store";
+import type { ReactNode } from "react";
 
-// import { useServerInsertedHTML } from "next/navigation";
-// import { CssBaseline, NextUIProvider } from "@nextui-org/react";
-// import { PropsWithChildren } from "react";
-// import ReduxProvider from "./redux-provider";
+interface ProvidersProps {
+  children: ReactNode;
+}
+const Providers: FC<ProvidersProps> = ({ children }) => {
+  return <Provider store={store}>{children}</Provider>;
+};
 
-// type P = PropsWithChildren;
-
-// export default function Providers({ children }: P) {
-//   useServerInsertedHTML(() => {
-//     return <>{CssBaseline.flush()}</>;
-//   });
-
-//   return ( // you can have multiple client side providers wrapped, in this case I am also using NextUIProvider
-//     <>
-//       <ReduxProvider>
-//         <NextUIProvider>{children}</NextUIProvider>
-//       </ReduxProvider>
-//     </>
-//   );
-// }
+export default Providers;

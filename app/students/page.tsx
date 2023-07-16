@@ -91,13 +91,11 @@ const StudentsPage = () => {
               members: [...updatedGroups[groupIndex].members, foundStudent],
             };
             localStorage.setItem("groups", JSON.stringify(updatedGroups));
-
             return updatedGroups;
-            // return { ...prev, [index]: { ...prev[index], members: tempArr } };
           });
           // const updatedMembers = group.members.push(foundStudent);
           // console.log("UPDATED MEMBERS", updatedMembers);
-          // removeFromList(parseInt(studentId));
+          removeFromList(parseInt(studentId));
         }
       }
     });

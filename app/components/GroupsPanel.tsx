@@ -22,8 +22,8 @@ const GroupsPanel = ({
 PanelProps) => {
   return (
     <div className={styles.groupsPanel}>
-      <h1>Groups</h1>
       <div className={styles.groupsList}>
+        <h1>Groups</h1>
         <div className={styles.group}>
           {groups[0]?.name &&
             groups.map((group: Group, i) => (
@@ -33,13 +33,18 @@ PanelProps) => {
                 // dragEndHandler={dragEndHandler}
               />
             ))}
-          <button className={styles.addGroupButton} onClick={() => handleAdd()}>
-            <h2>Add Group</h2>
-          </button>
+          <div className={styles.buttonContainer}>
+            <button
+              className={styles.addGroupButton}
+              onClick={() => handleAdd()}
+            >
+              <h2>Add Group</h2>
+            </button>
+          </div>
+          <div className={styles.close} onClick={(prev) => setToggle(!prev)}>
+            X
+          </div>
         </div>
-      </div>
-      <div className={styles.close} onClick={(prev) => setToggle(!prev)}>
-        X
       </div>
     </div>
   );

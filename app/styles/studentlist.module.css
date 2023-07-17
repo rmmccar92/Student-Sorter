@@ -12,6 +12,12 @@
   justify-content: space-evenly;
   min-height: 100vh;
 }
+.studentsPagePanelOpen {
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+  left: 20%;
+}
 
 .studentList {
   display: flex;

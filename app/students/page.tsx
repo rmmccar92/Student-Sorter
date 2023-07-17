@@ -20,6 +20,18 @@ const StudentsPage = () => {
   const [groups, setGroups] = useState<Group[] | []>([]);
   const [students, setStudents] = useState<Student[] | []>([]);
   const [list, setList] = useState<Student[] | []>([]);
+
+  const animateLeft = {
+    transform: "translateX(-18%)",
+    // animationDelay: "0.5s",
+    transition: "transform 0.5s ease-in",
+  };
+
+  const animateRight = {
+    transform: "unset",
+    transition: "transform 0.5s ease-out",
+  };
+
   // Get values from local storage if they exist
   useEffect(() => {
     const getStudents = async () => {
@@ -59,7 +71,7 @@ const StudentsPage = () => {
 
   const addGroupMember = (groupId: string, studentId: string) => {
     // console.log("GROUP ID", groupId, "STUDENT ID", studentId);
-    groups.forEach((group) => {
+    groups.map((group) => {
       const realGroupId = groupId.split("-")[1];
       // console.log(
       //   "GROUP ID",
@@ -82,10 +94,10 @@ const StudentsPage = () => {
           // const index = group.id - 1;
           const tempArr: Student[] = [...group.members];
           tempArr.push(foundStudent);
-          setGroups((prev: any) => {
+          setGroups((prev: Group[]) => {
             const updatedGroups = [...prev];
             const groupIndex = group.id - 1;
-            console.log("GROUP INDEX", groupIndex);
+            // console.log("GROUP INDEX", groupIndex);
             updatedGroups[groupIndex] = {
               ...updatedGroups[groupIndex],
               members: [...updatedGroups[groupIndex].members, foundStudent],
@@ -156,11 +168,11 @@ const StudentsPage = () => {
   };
 
   const findStudent = (id: number) => {
-    console.log("ID", id, "LIST", students, id);
+    // console.log("ID", id, "LIST", students, id);
     const found = students.find(
       (student: Student) => parseInt(student.id) === id
     );
-    console.log("FOUND", found);
+    // console.log("FOUND", found);
     return found;
   };
 
@@ -234,30 +246,35 @@ const StudentsPage = () => {
           </StudentModal>
         </>
       )}
-      <h1 className={styles.title}>Students</h1>
       <Suspense fallback={<div>Loading...</div>}>
         <DragDropContext
           onDragStart={handleDragStart}
           onDragEnd={dragEndHandler}
         >
-          <div className={styles.studentPage}>
-            <Droppable droppableId="1">
-              {(provided, snapshot) => (
-                <ul
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                  role="list"
-                  className={
-                    toggleGroupPanel ? styles.panelOpen : styles.studentList
-                  }
-                >
-                  {provided.placeholder}
-                  {students?.map((student: Student, i) => (
-                    <StudentCard key={i} i={i} student={student} />
-                  ))}
-                </ul>
-              )}
-            </Droppable>
+          <div
+            className={styles.studentListMain}
+            style={toggleGroupPanel ? animateLeft : animateRight}
+          >
+            <h1 className={styles.title}>Students</h1>
+            <div className={styles.studentPage}>
+              <Droppable droppableId="1">
+                {(provided, snapshot) => (
+                  <ul
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                    role="list"
+                    className={
+                      toggleGroupPanel ? styles.panelOpen : styles.studentList
+                    }
+                  >
+                    {provided.placeholder}
+                    {students?.map((student: Student, i) => (
+                      <StudentCard key={i} i={i} student={student} />
+                    ))}
+                  </ul>
+                )}
+              </Droppable>
+            </div>
           </div>
           <div className={styles.groupButton}>
             <GroupsComponent
@@ -265,15 +282,13 @@ const StudentsPage = () => {
               setToggle={setToggleGroupPanel}
             />
           </div>
-          {toggleGroupPanel && (
-            <GroupsPanel
-              toggle={toggleGroupPanel}
-              setToggle={setToggleGroupPanel}
-              groups={groups}
-              // setGroups={setGroups}
-              handleAdd={handleAdd}
-            />
-          )}
+          <GroupsPanel
+            toggle={toggleGroupPanel}
+            setToggle={setToggleGroupPanel}
+            groups={groups}
+            // setGroups={setGroups}
+            handleAdd={handleAdd}
+          />
         </DragDropContext>
       </Suspense>
     </>

@@ -6,11 +6,13 @@ import { Droppable } from "@hello-pangea/dnd";
 import Image from "next/image";
 interface SingleGroupComponentProps {
   group: Group;
+  removeStudent: (student: Student) => void;
 }
 
-const SingleGroupComponent: FC<SingleGroupComponentProps> = ({ group }) => {
-  // console.log("GROUP!!!", group);
-
+const SingleGroupComponent: FC<SingleGroupComponentProps> = ({
+  group,
+  removeStudent,
+}) => {
   const style = {
     background: group.color,
   };
@@ -39,6 +41,7 @@ const SingleGroupComponent: FC<SingleGroupComponentProps> = ({ group }) => {
                   />
                   <p>{member.name}</p>
                 </div>
+                <button onClick={() => removeStudent(member)}>x</button>
               </li>
             ))}
           </ul>

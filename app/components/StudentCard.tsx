@@ -3,6 +3,8 @@ import type { Student } from "../../types.ts";
 import styles from "../styles/studentlist.module.css";
 import Image from "next/image";
 import { Draggable } from "@hello-pangea/dnd";
+import { useTransition } from "@react-spring/core";
+import { animated } from "@react-spring/web";
 
 interface StudentCardProps {
   student: Student;

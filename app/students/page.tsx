@@ -22,14 +22,13 @@ const StudentsPage = () => {
   const [list, setList] = useState<Student[] | []>([]);
 
   const animateLeft = {
-    transform: "translateX(-18%)",
-    // animationDelay: "0.5s",
-    transition: "transform 0.5s ease-in",
+    transform: "translateX(-10%)",
+    transition: "transform 0.3s ease-in",
   };
 
   const animateRight = {
     transform: "unset",
-    transition: "transform 0.5s ease-out",
+    transition: "transform 0.3s ease-out",
   };
 
   // Get values from local storage if they exist
@@ -112,6 +111,31 @@ const StudentsPage = () => {
       }
     });
   };
+  const removeStudent = (student: Student) => {
+    const foundGroup = groups.find((group: Group) => {
+      return group.id === student.group;
+    });
+    if (!foundGroup) return;
+    else {
+      const groupId = foundGroup.id;
+      const tempGroupMembers = [...foundGroup.members];
+      const updatedGroup = tempGroupMembers.filter((studentSearch: Student) => {
+        return studentSearch.id !== student.id;
+      });
+      setGroups((prev: Group[]) => {
+        const updatedGroups = [...prev];
+        const groupIndex = groupId - 1;
+        updatedGroups[groupIndex] = {
+          ...updatedGroups[groupIndex],
+          members: updatedGroup,
+        };
+        localStorage.setItem("groups", JSON.stringify(updatedGroups));
+        addToList(student);
+        return updatedGroups;
+      });
+    }
+  };
+
   const removeFromList = (id: number) => {
     const tempList = [...students];
     const updatedList = tempList.filter((student: Student) => {
@@ -120,6 +144,13 @@ const StudentsPage = () => {
     setStudents(updatedList);
     localStorage.setItem("students", JSON.stringify(updatedList));
     // console.log("UPDATED LIST", updatedList);
+  };
+
+  const addToList = (student: Student) => {
+    const tempList = [...students];
+    tempList.push(student);
+    setStudents(tempList);
+    localStorage.setItem("students", JSON.stringify(tempList));
   };
 
   let randomColor = () => {
@@ -177,7 +208,8 @@ const StudentsPage = () => {
   };
 
   const openModal = (id: number) => {
-    const student: any = findStudent(id);
+    const student: Student | undefined = findStudent(id);
+    if (!student) return;
     setSelectedStudent(student);
     setIsOpen(true);
   };
@@ -286,8 +318,8 @@ const StudentsPage = () => {
             toggle={toggleGroupPanel}
             setToggle={setToggleGroupPanel}
             groups={groups}
-            // setGroups={setGroups}
             handleAdd={handleAdd}
+            removeStudent={removeStudent}
           />
         </DragDropContext>
       </Suspense>

@@ -1,6 +1,6 @@
 import styles from "../styles/groupsPanel.module.css";
 import SingleGroupComponent from "./SingleGroupComponent";
-import type { Group } from "../../types.ts";
+import type { Group, Student } from "../../types.ts";
 import { useTransition } from "@react-spring/core";
 import { animated } from "@react-spring/web";
 
@@ -9,11 +9,16 @@ interface PanelProps {
   setToggle: (toggle: any) => void;
   groups: Group[] | [];
   handleAdd: () => void;
-  // setGroups: (groups: Group[]) => void;
-  // dragEndHandler: (result: any) => void;
+  removeStudent: (student: Student) => void;
 }
 
-const GroupsPanel = ({ toggle, setToggle, groups, handleAdd }: PanelProps) => {
+const GroupsPanel = ({
+  toggle,
+  setToggle,
+  groups,
+  handleAdd,
+  removeStudent,
+}: PanelProps) => {
   const animation = useTransition(toggle, {
     config: { duration: 250 },
     from: { x: 100, opacity: 0 },
@@ -34,7 +39,7 @@ const GroupsPanel = ({ toggle, setToggle, groups, handleAdd }: PanelProps) => {
                     <SingleGroupComponent
                       key={i}
                       group={group}
-                      // dragEndHandler={dragEndHandler}
+                      removeStudent={removeStudent}
                     />
                   ))}
                 <div className={styles.buttonContainer}>

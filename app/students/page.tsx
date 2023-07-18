@@ -21,16 +21,6 @@ const StudentsPage = () => {
   const [students, setStudents] = useState<Student[] | []>([]);
   const [list, setList] = useState<Student[] | []>([]);
 
-  const animateLeft = {
-    transform: "translateX(-10%)",
-    transition: "transform 0.3s ease-in",
-  };
-
-  const animateRight = {
-    transform: "unset",
-    transition: "transform 0.3s ease-out",
-  };
-
   // Get values from local storage if they exist
   useEffect(() => {
     const getStudents = async () => {
@@ -283,10 +273,7 @@ const StudentsPage = () => {
           onDragStart={handleDragStart}
           onDragEnd={dragEndHandler}
         >
-          <div
-            className={styles.studentListMain}
-            style={toggleGroupPanel ? animateLeft : animateRight}
-          >
+          <div className={styles.studentListMain}>
             <h1 className={styles.title}>Students</h1>
             <div className={styles.studentPage}>
               <Droppable droppableId="1">

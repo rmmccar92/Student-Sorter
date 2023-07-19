@@ -8,6 +8,7 @@ import GroupsPanel from "../components/GroupsPanel.tsx";
 import StudentCard from "../components/StudentCard.tsx";
 import type { Student, Group } from "../../types.ts";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
+import { useTrail, useTransition } from "@react-spring/core";
 
 const StudentsPage = () => {
   let value: any = [];
@@ -55,7 +56,6 @@ const StudentsPage = () => {
     }
     setGroups(value);
   }, []);
-  // Remove instructors from the list
 
   const addGroupMember = (groupId: string, studentId: string) => {
     // console.log("GROUP ID", groupId, "STUDENT ID", studentId);
@@ -93,7 +93,6 @@ const StudentsPage = () => {
             localStorage.setItem("groups", JSON.stringify(updatedGroups));
             return updatedGroups;
           });
-          // const updatedMembers = group.members.push(foundStudent);
           // console.log("UPDATED MEMBERS", updatedMembers);
           removeFromList(parseInt(studentId));
         }
@@ -231,6 +230,17 @@ const StudentsPage = () => {
       addGroupMember(destination.droppableId, draggableId);
     }
   };
+
+  const [trails, api] = useTrail(
+    1,
+    () => ({
+      config: { duration: 500 },
+      from: { opacity: 0 },
+      to: { opacity: 1 },
+    }),
+    []
+  );
+
   return (
     <>
       {isOpen && (
@@ -283,7 +293,17 @@ const StudentsPage = () => {
                 >
                   {provided.placeholder}
                   {students?.map((student: Student, i) => (
-                    <StudentCard key={i} i={i} student={student} />
+                    <>
+                      {trails.map((props) => (
+                        <StudentCard
+                          key={i}
+                          i={i}
+                          trailProps={props}
+                          toggle={toggleGroupPanel}
+                          student={student}
+                        />
+                      ))}
+                    </>
                   ))}
                 </ul>
               )}

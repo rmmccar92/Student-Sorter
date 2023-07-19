@@ -293,17 +293,17 @@ const StudentsPage = () => {
                 >
                   {provided.placeholder}
                   {students?.map((student: Student, i) => (
-                    <>
+                    <div key={student.id}>
                       {trails.map((props) => (
                         <StudentCard
-                          key={i}
                           i={i}
+                          key={i}
                           trailProps={props}
                           toggle={toggleGroupPanel}
                           student={student}
                         />
                       ))}
-                    </>
+                    </div>
                   ))}
                 </ul>
               )}

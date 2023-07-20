@@ -43,7 +43,7 @@ export type Student = {
     text: string;
   }[];
   analytics_url?: string | null;
-  group?: number;
+  group?: number | null;
 };
 
 export type Group = {

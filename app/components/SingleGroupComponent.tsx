@@ -9,11 +9,13 @@ import { animated } from "@react-spring/web";
 interface SingleGroupComponentProps {
   group: Group;
   removeStudent: (student: Student) => void;
+  removeGroup: (id: number) => void;
 }
 
 const SingleGroupComponent: FC<SingleGroupComponentProps> = ({
   group,
   removeStudent,
+  removeGroup,
 }) => {
   const animation = useTransition(group, {
     config: { duration: 250 },
@@ -57,6 +59,12 @@ const SingleGroupComponent: FC<SingleGroupComponentProps> = ({
                     </li>
                   ))}
                 </ul>
+                <button
+                  className={styles.groupRemoveButton}
+                  onClick={() => removeGroup(group.id)}
+                >
+                  X
+                </button>
               </animated.div>
             ) : (
               <></>

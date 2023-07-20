@@ -135,10 +135,13 @@ const StudentsPage = () => {
   };
 
   const addToList = (student: Student) => {
+    console.log("ADD TO LIST", student);
     const tempList = [...students];
     tempList.push(student);
-    setStudents(tempList);
     localStorage.setItem("students", JSON.stringify(tempList));
+    setStudents((prev: Student[]) => {
+      return [...prev, student];
+    });
   };
 
   let randomColor = () => {
@@ -184,6 +187,26 @@ const StudentsPage = () => {
         },
       ])
     );
+  };
+
+  const handleGroupDelete = (id: number) => {
+    console.log("REMOVE GROUP", id);
+    setGroups((prev) => {
+      const tempGroups = [...prev];
+      tempGroups.map((group: Group) => {
+        if (group.id === id) {
+          group.members.forEach((student: Student) => {
+            student.group = null;
+            addToList(student);
+          });
+        }
+      });
+      const update = tempGroups.filter((group: Group) => {
+        return group.id !== id;
+      });
+      localStorage.setItem("groups", JSON.stringify(update));
+      return update;
+    });
   };
 
   const findStudent = (id: number) => {
@@ -322,6 +345,7 @@ const StudentsPage = () => {
           groups={groups}
           handleAdd={handleAdd}
           removeStudent={removeStudent}
+          removeGroup={handleGroupDelete}
         />
       </DragDropContext>
     </>

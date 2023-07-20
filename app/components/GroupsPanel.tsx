@@ -10,6 +10,7 @@ interface PanelProps {
   groups: Group[] | [];
   handleAdd: () => void;
   removeStudent: (student: Student) => void;
+  removeGroup: (id: number) => void;
 }
 
 const GroupsPanel = ({
@@ -18,6 +19,7 @@ const GroupsPanel = ({
   groups,
   handleAdd,
   removeStudent,
+  removeGroup,
 }: PanelProps) => {
   const animation = useTransition(toggle, {
     config: { duration: 250 },
@@ -40,6 +42,7 @@ const GroupsPanel = ({
                       key={i}
                       group={group}
                       removeStudent={removeStudent}
+                      removeGroup={removeGroup}
                     />
                   ))}
                 <div className={styles.buttonContainer}>

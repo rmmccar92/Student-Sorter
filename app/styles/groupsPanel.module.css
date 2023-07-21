@@ -1,9 +1,5 @@
 .groupsPanel {
-  display: flex;
-  flex-direction: column;
   position: fixed;
-  justify-content: center;
-  align-items: center;
   top: 0;
   right: 0;
   width: 50vw;
@@ -12,7 +8,6 @@
 }
 .group {
   display: flex;
-
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
@@ -23,12 +18,20 @@
   position: fixed;
   top: 0;
   bottom: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+.groupListMain {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-left: 4%;
 }
-
 .buttonContainer {
   width: 100%;
   display: flex;
@@ -55,15 +58,22 @@
 }
 
 .close {
-  margin: 1%;
   padding: 1% 2%;
   font-size: 15px;
   font-family: "JetBrains Mono", monospace;
+  width: 10%;
   font-weight: bold;
-  -webkit-text-stroke: #5e0202c3 0.25px;
-  color: #f90404;
   background: radial-gradient(100% 100% at 100% 0, #4b9cd3 0, #0824f1a2 100%);
   cursor: pointer;
   border: #fff solid 1px;
   border-radius: 6px;
+  transform: rotate(90deg);
+  position: relative;
+  right: 2%;
+}
+
+@media screen and (max-width) {
+  .groupListMain {
+    margin-left: 0;
+  }
 }

@@ -108,6 +108,7 @@ const StudentsPage = () => {
       const groupId = foundGroup.id;
       const tempGroupMembers = [...foundGroup.members];
       const updatedGroup = tempGroupMembers.filter((studentSearch: Student) => {
+        student.group = null;
         return studentSearch.id !== student.id;
       });
       setGroups((prev: Group[]) => {

@@ -23,7 +23,7 @@ const GroupsPanel = ({
   removeGroup,
 }: PanelProps) => {
   const animation = useTransition(toggle, {
-    config: { duration: 250 },
+    config: { duration: 125 },
     from: { x: 100, opacity: 0 },
     enter: { x: 0, opacity: 1 },
     leave: { x: 100, opacity: 0 },

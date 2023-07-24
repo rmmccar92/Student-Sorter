@@ -7,6 +7,10 @@
   background-color: rgba(0, 0, 0, 0.5);
   overflow-y: auto;
 }
+
+.groupsPanel::-webkit-scrollbar {
+  display: none;
+}
 .group {
   display: flex;
   flex-direction: column;
@@ -19,7 +23,7 @@
 .groupsList {
   display: flex;
   flex-direction: row-reverse;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
 }
 .groupListMain {
@@ -41,7 +45,7 @@
   align-items: center;
   font-size: 10px;
   padding: 1.25%;
-  margin: 6px;
+  margin: 24px;
   background: radial-gradient(100% 100% at 100% 0, #4b9cd3 0, #0824f1a2 100%);
   border: 0;
   border-radius: 6px;
@@ -53,18 +57,19 @@
 }
 
 .close {
-  padding: 1em 2em;
-  font-size: 15px;
+  /* padding: 1em 1em; */
   font-family: "JetBrains Mono", monospace;
-  width: 20em;
-  font-weight: bold;
+  width: 12em;
+  align-self: flex-start;
   background: radial-gradient(100% 100% at 100% 0, #4b9cd3 0, #0824f1a2 100%);
   cursor: pointer;
   border: #fff solid 1px;
-  border-radius: 6px;
+  /* margin-top: 2.75em; */
+  border-radius: 14px 14px 0 0;
   transform: rotate(90deg);
-  position: relative;
-  right: 2em;
+  position: fixed;
+  top: 500px;
+  right: 0;
 }
 
 @media screen and (max-width) {

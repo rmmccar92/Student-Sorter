@@ -60,12 +60,7 @@
   justify-content: flex-start;
   line-height: 1;
   position: relative;
-  text-decoration: none;
   transition: box-shadow 0.15s, transform 0.15s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  white-space: nowrap;
   will-change: box-shadow, transform;
   font-size: 18px;
   z-index: 999;

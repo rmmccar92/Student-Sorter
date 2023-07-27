@@ -1,0 +1,30 @@
+.formContainer {
+  margin: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 75vh;
+  width: 45%;
+  background: var(--dark);
+  border: 4px solid var(--secondary);
+  border-radius: 14px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 75vh;
+  width: 100%;
+}
+
+.form input {
+  margin: 2%;
+  width: 85%;
+  height: 5%;
+  border: 2px solid var(--secondary);
+  border-radius: 14px;
+  background: white;
+}

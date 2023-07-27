@@ -3,6 +3,7 @@ import styles from "./styles/page.module.css";
 import Link from "next/link";
 import Footer from "./components/Footer";
 import dynamic from "next/dynamic";
+
 const LoginForm = dynamic(() => import("./components/LoginForm"), {
   ssr: false,
 });

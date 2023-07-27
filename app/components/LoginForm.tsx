@@ -3,6 +3,7 @@
 import type { FC } from "react";
 import { useState } from "react";
 import styles from "../styles/loginForm.module.css";
+import { signIn } from "next-auth/react";
 
 interface LoginFormProps {}
 
@@ -20,9 +21,7 @@ const LoginForm: FC<LoginFormProps> = ({}) => {
               <input type="text" id="loginUsername" name="username" />
               <label htmlFor="password">Password</label>
               <input type="password" id="loginPassword" name="password" />
-              <button type="submit" value="Login">
-                Login
-              </button>
+              <button onClick={() => signIn()}>Login</button>
             </form>
             <p>
               New Here?

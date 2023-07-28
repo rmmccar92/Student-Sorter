@@ -22,7 +22,10 @@ const StudentsPage = () => {
   const [students, setStudents] = useState<Student[] | []>([]);
   const [list, setList] = useState<Student[] | []>([]);
 
-  const { data: session, status } = useSession();
+  const { data: session, status } = useSession() || {
+    data: null,
+    status: null,
+  };
 
   // Get values from local storage if they exist
   useEffect(() => {

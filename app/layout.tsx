@@ -21,9 +21,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body className={inter.className}>
-        <Providers>
-          <SessionProvider>{children}</SessionProvider>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

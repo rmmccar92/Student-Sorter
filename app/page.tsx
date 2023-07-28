@@ -7,7 +7,16 @@ import dynamic from "next/dynamic";
 const LoginForm = dynamic(() => import("./components/LoginForm"), {
   ssr: false,
 });
-export default function Home() {
+export default async function Home() {
+  // const session = await getServerSession(authOptions);
+
+  // if (!session) {
+  //   // redirect("/signin?callbackUrl=/profile");
+  //   console.log("no session");
+  // } else {
+  //   console.log(session);
+  // }
+
   return (
     <>
       <main className={styles.main}>

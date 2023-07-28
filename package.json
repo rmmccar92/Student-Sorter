@@ -2,6 +2,7 @@
   "name": "next-13-practice",
   "version": "0.1.0",
   "private": true,
+  "module": "esnext",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

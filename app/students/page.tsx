@@ -8,7 +8,8 @@ import GroupsPanel from "../components/GroupsPanel.tsx";
 import StudentCard from "../components/StudentCard.tsx";
 import type { Student, Group } from "../../types.ts";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
-import { useTrail, useTransition } from "@react-spring/core";
+import { useTrail } from "@react-spring/core";
+import { useSession } from "next-auth/react";
 
 const StudentsPage = () => {
   let value: any = [];
@@ -21,8 +22,15 @@ const StudentsPage = () => {
   const [students, setStudents] = useState<Student[] | []>([]);
   const [list, setList] = useState<Student[] | []>([]);
 
+  const { data: session, status } = useSession();
+
   // Get values from local storage if they exist
   useEffect(() => {
+    if (!session) {
+      console.log("No session");
+    } else {
+      console.log("Session", session);
+    }
     const getStudents = async () => {
       if ("students" in localStorage) {
         setStudents(JSON.parse(localStorage.getItem("students") as string));

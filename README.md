@@ -1,34 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Student Sorter App
 
-## Getting Started
+## Table of Contents
+- [Introduction](#introduction)
+- [Features](#features)
+- [Usage](#usage)
+- [License](#license)
 
-First, run the development server:
+## Introduction
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+The Student Sorter App is a powerful tool designed to help educators efficiently organize and manage student data. Whether you're a teacher, administrator, or anyone else involved in education, this app streamlines the process of sorting and categorizing students into individual groups. I made this for my own productivity but feel free to take a look and use/alter it for your own purposes.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **User-friendly Interface:** The app offers an intuitive and user-friendly interface, making it easy for educators to navigate and utilize its features. I used a drag and drop library to make the experience easy and fun!
+- **Group Creation and Management** Create edit and manage groups through the student page.
+- **User Authentication:** Secure user accounts with authentication to ensure data privacy and integrity.
+- **Responsive Design:** Access the app from any device with a responsive design that adapts to different screen sizes.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+(Student names and pictures have been blurred to preserve privacy)
+![Main Page](./student_sorter_images/sorter_image_1.png)
+![Student Page](./student_sorter_images/sorter_image_2.png)
+![Demo of App](./student_sorter_images/sorter_demo.gif)
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## Usage
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Clone the repo locally or visit the live deployment [here](https://student-sorter.vercel.app/)!
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

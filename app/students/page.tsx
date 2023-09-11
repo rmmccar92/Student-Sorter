@@ -22,18 +22,18 @@ const StudentsPage = () => {
   const [students, setStudents] = useState<Student[] | []>([]);
   const [list, setList] = useState<Student[] | []>([]);
 
-  const { data: session, status } = useSession() || {
-    data: null,
-    status: null,
-  };
+  // const { data: session, status } = useSession() || {
+  //   data: null,
+  //   status: null,
+  // };
 
   // Get values from local storage if they exist
   useEffect(() => {
-    if (!session) {
-      console.log("No session");
-    } else {
-      console.log("Session", session);
-    }
+    // if (!session) {
+    //   console.log("No session");
+    // } else {
+    //   console.log("Session", session);
+    // }
     const getStudents = async () => {
       if ("students" in localStorage) {
         setStudents(JSON.parse(localStorage.getItem("students") as string));
